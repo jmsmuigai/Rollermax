@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { 
@@ -68,7 +68,7 @@ const mockTrackingData: Record<string, {
   },
 }
 
-export default function TrackPage() {
+function TrackPageContent() {
   const searchParams = useSearchParams()
   const [trackingNumber, setTrackingNumber] = useState('')
   const [trackingData, setTrackingData] = useState<any>(null)
@@ -81,6 +81,7 @@ export default function TrackPage() {
       setTrackingNumber(number)
       handleTrack(number)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const handleTrack = async (number?: string) => {
@@ -308,6 +309,21 @@ export default function TrackPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function TrackPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-primary-dark pt-20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-accent mb-4"></div>
+          <p className="text-gray-300">Loading tracking page...</p>
+        </div>
+      </div>
+    }>
+      <TrackPageContent />
+    </Suspense>
   )
 }
 
