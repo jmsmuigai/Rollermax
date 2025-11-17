@@ -2,11 +2,13 @@
 
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart, Sparkles } from 'lucide-react'
+import SectionBackground from './SectionBackground'
 
 export default function About() {
   return (
-    <section id="about" className="section-padding">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionBackground imageSrc="/images/camel.png">
+      <section id="about" className="section-padding">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Content */}
           <motion.div
@@ -99,8 +101,9 @@ export default function About() {
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBackground>
   )
 }
 

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Package, Users, Globe, Clock } from 'lucide-react'
+import SectionBackground from './SectionBackground'
 
 const stats = [
   {
@@ -32,8 +33,9 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="section-padding bg-primary/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionBackground imageSrc="/images/lorry.png">
+      <section className="section-padding bg-primary/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <motion.div
@@ -54,8 +56,9 @@ export default function Stats() {
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBackground>
   )
 }
 

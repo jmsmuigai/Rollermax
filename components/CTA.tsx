@@ -3,14 +3,16 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
+import SectionBackground from './SectionBackground'
 
 export default function CTA() {
   return (
-    <section className="section-padding relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/50 to-blue-500/20"></div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionBackground imageSrc="/images/Banner.png">
+      <section className="section-padding relative overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/50 to-blue-500/20 z-0"></div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,8 +49,9 @@ export default function CTA() {
             </a>
           </div>
         </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBackground>
   )
 }
 

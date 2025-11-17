@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { TrendingUp, Clock, Shield, Globe } from 'lucide-react'
+import SectionBackground from './SectionBackground'
 
 export default function Infographic() {
   const stats = [
@@ -36,14 +37,15 @@ export default function Infographic() {
   ]
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-      </div>
+    <SectionBackground imageSrc="/images/PHOTO-2025-11-11-15-06-26.jpg">
+      <section className="section-padding relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 overflow-hidden z-0">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -129,8 +131,9 @@ export default function Infographic() {
             ))}
           </div>
         </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBackground>
   )
 }
 

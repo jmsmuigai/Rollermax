@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 export default function Logo3D() {
+  const [logoLoaded, setLogoLoaded] = useState(false)
+
   return (
     <div className="relative">
       {/* 3D Circular Frame with Glow */}
@@ -11,7 +14,7 @@ export default function Logo3D() {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative w-20 h-20 md:w-24 md:h-24"
+        className="relative w-20 h-20 md:w-24 md:h-24 logo-3d"
       >
         {/* Outer glow ring */}
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent via-accent-light to-accent-dark opacity-70 blur-xl animate-pulse"></div>
@@ -24,18 +27,32 @@ export default function Logo3D() {
         {/* Inner circle with shine */}
         <div className="absolute inset-2 rounded-full bg-gradient-to-br from-primary via-primary-light to-primary border-2 border-accent/50 overflow-hidden shadow-2xl shine-effect">
           {/* Logo container */}
-          <div className="relative w-full h-full flex items-center justify-center p-3">
-            {/* Package icon or logo */}
-            <div className="relative z-10">
-              <div className="flex flex-col items-center">
-                <div className="text-2xl md:text-3xl font-bold">
-                  <span className="text-white">Roller</span>
-                  <span className="text-accent">max</span>
+          <div className="relative w-full h-full flex items-center justify-center p-2 md:p-3">
+            {/* Try to load actual logo image */}
+            <div className="relative z-10 w-full h-full">
+              <Image
+                src="/images/Rollermax logo.png"
+                alt="Rollermax Logo"
+                fill
+                className={`object-contain transition-opacity duration-500 ${
+                  logoLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                onLoad={() => setLogoLoaded(true)}
+                onError={() => setLogoLoaded(false)}
+                priority
+              />
+              {/* Fallback text if image not found */}
+              {!logoLoaded && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="text-2xl md:text-3xl font-bold">
+                    <span className="text-white">Roller</span>
+                    <span className="text-accent">max</span>
+                  </div>
+                  <div className="text-[8px] md:text-[10px] text-gray-300 uppercase tracking-wider mt-0.5">
+                    Courier
+                  </div>
                 </div>
-                <div className="text-[8px] md:text-[10px] text-gray-300 uppercase tracking-wider mt-0.5">
-                  Courier
-                </div>
-              </div>
+              )}
             </div>
             
             {/* Reflective highlight */}

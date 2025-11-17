@@ -11,6 +11,7 @@ import {
   Sparkles 
 } from 'lucide-react'
 import Link from 'next/link'
+import SectionBackground from './SectionBackground'
 
 const services = [
   {
@@ -53,8 +54,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="section-padding">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionBackground imageSrc="/images/Aeroplane.png">
+      <section id="services" className="section-padding">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -112,8 +114,9 @@ export default function Services() {
             Get a Quote
           </Link>
         </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBackground>
   )
 }
 

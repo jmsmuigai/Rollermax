@@ -9,6 +9,7 @@ import {
   Clock, 
   Headphones 
 } from 'lucide-react'
+import SectionBackground from './SectionBackground'
 
 const features = [
   {
@@ -51,8 +52,9 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="section-padding bg-primary/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionBackground imageSrc="/images/Motorcycle.png">
+      <section className="section-padding bg-primary/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,8 +94,9 @@ export default function Features() {
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBackground>
   )
 }
 

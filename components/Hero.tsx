@@ -4,7 +4,9 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Package, ArrowRight, Sparkles } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { IllusionalMarquee } from './Marquee'
+import SectionBackground from './SectionBackground'
 
 export default function Hero() {
   const [trackingNumber, setTrackingNumber] = useState('')
@@ -20,12 +22,16 @@ export default function Hero() {
     <>
       {/* Illusional Marquee at top */}
       <IllusionalMarquee />
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl float-animation"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl float-animation" style={{ animationDelay: '2s' }}></div>
-        </div>
+      <SectionBackground 
+        imageSrc="/images/Banner.png" 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      >
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          {/* Animated background elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 left-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl float-animation"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl float-animation" style={{ animationDelay: '2s' }}></div>
+          </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -182,6 +188,7 @@ export default function Hero() {
         </div>
       </motion.div>
     </section>
+    </SectionBackground>
     </>
   )
 }

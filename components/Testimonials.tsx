@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
+import SectionBackground from './SectionBackground'
 
 const testimonials = [
   {
@@ -29,8 +30,9 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="section-padding bg-primary/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionBackground imageSrc="/images/Screenshot 2025-11-11 at 12.28.08.png">
+      <section className="section-padding bg-primary/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,8 +74,9 @@ export default function Testimonials() {
             </motion.div>
           ))}
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </SectionBackground>
   )
 }
 
