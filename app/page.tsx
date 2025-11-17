@@ -5,13 +5,17 @@ import About from '@/components/About'
 import Stats from '@/components/Stats'
 import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
+import Infographic from '@/components/Infographic'
+import ImageGallery from '@/components/ImageGallery'
 
 export default function Home() {
   return (
     <div className="islamic-pattern">
       <Hero />
       <Stats />
+      <ImageGallery />
       <Services />
+      <Infographic />
       <Features />
       <About />
       <Testimonials />

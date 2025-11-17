@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Package, Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import Logo3D from './Logo3D'
 
 export default function Footer() {
   return (
@@ -8,14 +9,16 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center space-x-3 mb-4">
-              <Package className="w-8 h-8 text-accent" />
+            <Link href="/" className="flex items-center space-x-3 mb-4 group">
+              <div className="scale-75">
+                <Logo3D />
+              </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold">
                   <span className="text-white">Roller</span>
                   <span className="text-accent">max</span>
                 </span>
-                <span className="text-xs text-gray-400 uppercase">Courier</span>
+                <span className="text-xs text-gray-400 uppercase group-hover:text-accent transition-colors">Courier</span>
               </div>
             </Link>
             <p className="text-gray-400 text-sm mb-4">

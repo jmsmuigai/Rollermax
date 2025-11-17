@@ -81,10 +81,14 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="card group cursor-pointer"
+              className="card group cursor-pointer relative overflow-hidden"
             >
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                <service.icon className="w-8 h-8 text-white" />
+              {/* Hover glow effect */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl blur-xl`}></div>
+              <div className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+                {/* Glow effect */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} rounded-2xl blur-md opacity-50 group-hover:opacity-75 transition-opacity`}></div>
+                <service.icon className="w-8 h-8 text-white relative z-10" />
               </div>
               <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
               <p className="text-gray-400 mb-6 leading-relaxed">{service.description}</p>

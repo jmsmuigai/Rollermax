@@ -9,12 +9,13 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          dark: '#0d1b2a',
-          DEFAULT: '#1a1a2e',
-          light: '#16213e',
+          dark: '#1A428A', // Official corporate dark blue
+          DEFAULT: '#1A428A',
+          light: '#2d5aa0',
+          lighter: '#3f6db5',
         },
         accent: {
-          DEFAULT: '#ff6b35',
+          DEFAULT: '#FF6B35', // Official corporate orange
           light: '#ff8c5a',
           dark: '#e55a2b',
         },
@@ -24,7 +25,7 @@ module.exports = {
         },
         islamic: {
           green: '#006b3c',
-          blue: '#1e3a8a',
+          blue: '#1A428A',
         },
       },
       fontFamily: {
