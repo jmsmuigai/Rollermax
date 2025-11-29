@@ -55,7 +55,7 @@ export default function Infographic() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Why Choose <span className="accent-gradient">Rollermax</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-primary dark:text-white/80 max-w-3xl mx-auto">
             Powerful insights into our service excellence
           </p>
         </motion.div>
@@ -89,7 +89,7 @@ export default function Infographic() {
                 <p className="text-xl font-semibold text-accent mb-3 text-center">{stat.label}</p>
                 
                 {/* Description */}
-                <p className="text-gray-400 text-sm text-center">{stat.description}</p>
+                <p className="text-primary dark:text-white/70 text-sm text-center">{stat.description}</p>
                 
                 {/* Decorative corner elements */}
                 <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-accent/30 rounded-tr-2xl"></div>
@@ -116,7 +116,7 @@ export default function Infographic() {
                 </div>
                 <div className="text-center md:text-left md:ml-4">
                   <p className="text-white font-semibold">{step}</p>
-                  <p className="text-gray-400 text-sm">Step {index + 1}</p>
+                  <p className="text-primary dark:text-white/70 text-sm">Step {index + 1}</p>
                 </div>
                 {index < 3 && (
                   <motion.div

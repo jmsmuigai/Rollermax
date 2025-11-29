@@ -92,7 +92,7 @@ export default function GeminiBot() {
                     className={`max-w-[80%] rounded-2xl p-3 ${
                       message.sender === 'user'
                         ? 'bg-google-blue text-white'
-                        : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700'
+                        : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-white/90 border border-gray-200 dark:border-gray-700'
                     }`}
                   >
                     <p className="text-sm">{message.text}</p>
@@ -110,7 +110,7 @@ export default function GeminiBot() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="Type your message..."
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-google-blue"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white/90 focus:outline-none focus:ring-2 focus:ring-google-blue"
                 />
                 <button
                   onClick={handleSend}
@@ -119,7 +119,7 @@ export default function GeminiBot() {
                   <Send className="w-5 h-5" />
                 </button>
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+              <p className="text-xs text-primary dark:text-white/60 dark:text-primary dark:text-white/70 mt-2 text-center">
                 Powered by Google Gemini AI
               </p>
             </div>

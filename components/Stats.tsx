@@ -52,7 +52,7 @@ export default function Stats() {
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
                 {stat.value}
               </h3>
-              <p className="text-gray-400 text-sm md:text-base">{stat.label}</p>
+              <p className="text-primary dark:text-white/70 text-sm md:text-base">{stat.label}</p>
             </motion.div>
           ))}
         </div>

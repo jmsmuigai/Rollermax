@@ -22,7 +22,7 @@ export default function CTA() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Ship? <span className="accent-gradient">Get Started Today</span>
           </h2>
-          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+          <p className="text-xl text-primary dark:text-white/80 mb-10 max-w-2xl mx-auto">
             Experience the future of logistics with Rollermax. Fast, secure, and AI-powered delivery services.
           </p>
 
@@ -37,7 +37,7 @@ export default function CTA() {
             </a>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-gray-300">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-primary dark:text-white/80">
             <a href="tel:+254722227172" className="flex items-center space-x-2 hover:text-accent transition-colors">
               <Phone className="w-5 h-5" />
               <span>0722 227 172</span>

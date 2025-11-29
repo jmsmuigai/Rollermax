@@ -49,7 +49,7 @@ export default function Navbar() {
               <span className="text-lg font-bold text-primary-dark dark:text-white">
                 Roller<span className="text-accent">max</span>
               </span>
-              <span className="text-[10px] text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+              <span className="text-[10px] text-primary dark:text-white/80 dark:text-primary dark:text-white/70 uppercase tracking-wider">
                 Courier
               </span>
             </div>
@@ -61,7 +61,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-dark dark:hover:text-accent transition-colors font-medium text-sm relative group"
+                className="text-primary dark:text-white/90 dark:text-primary dark:text-white/80 hover:text-primary-dark dark:hover:text-accent transition-colors font-medium text-sm relative group"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
@@ -75,7 +75,7 @@ export default function Navbar() {
             </Link>
             <button
               onClick={toggleTheme}
-              className="ml-4 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="ml-4 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-primary dark:text-white/90 dark:text-primary dark:text-white/80 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
@@ -92,14 +92,14 @@ export default function Navbar() {
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-primary dark:text-white/90 dark:text-primary dark:text-white/80"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-primary dark:text-white/90 dark:text-primary dark:text-white/80"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -122,7 +122,7 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-primary-dark dark:hover:text-accent hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  className="block px-3 py-2 text-primary dark:text-white/90 dark:text-primary dark:text-white/80 hover:text-primary-dark dark:hover:text-accent hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
                 >
                   {item.label}
                 </Link>

@@ -64,7 +64,7 @@ export default function Features() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Why Choose <span className="accent-gradient">Rollermax</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-primary dark:text-white/80 max-w-3xl mx-auto">
             Experience the future of logistics with cutting-edge technology and personalized service
           </p>
         </motion.div>
@@ -89,7 +89,7 @@ export default function Features() {
                   <feature.icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                <p className="text-primary dark:text-white/70 leading-relaxed">{feature.description}</p>
               </div>
             </motion.div>
           ))}

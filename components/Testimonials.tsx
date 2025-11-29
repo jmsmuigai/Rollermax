@@ -42,7 +42,7 @@ export default function Testimonials() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             What Our <span className="accent-gradient">Customers Say</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-primary dark:text-white/80 max-w-3xl mx-auto">
             Don't just take our word for it - hear from our satisfied customers
           </p>
         </motion.div>
@@ -63,13 +63,13 @@ export default function Testimonials() {
                   <Star key={i} className="w-5 h-5 fill-accent text-accent" />
                 ))}
               </div>
-              <p className="text-gray-300 mb-6 leading-relaxed relative z-10">
+              <p className="text-primary dark:text-white/80 mb-6 leading-relaxed relative z-10">
                 "{testimonial.text}"
               </p>
               <div className="border-t border-accent/20 pt-4">
                 <p className="font-bold text-white">{testimonial.name}</p>
-                <p className="text-sm text-gray-400">{testimonial.role}</p>
-                <p className="text-xs text-gray-500 mt-1">{testimonial.location}</p>
+                <p className="text-sm text-primary dark:text-white/70">{testimonial.role}</p>
+                <p className="text-xs text-primary dark:text-white/60 mt-1">{testimonial.location}</p>
               </div>
             </motion.div>
           ))}

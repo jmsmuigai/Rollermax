@@ -62,7 +62,7 @@ export default function ImageGallery() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Our <span className="accent-gradient">Delivery Fleet</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-primary dark:text-white/80 max-w-3xl mx-auto">
             From traditional caravans to modern aircraft - we deliver everywhere
           </p>
         </motion.div>
@@ -112,7 +112,7 @@ export default function ImageGallery() {
                 {/* Content */}
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-white mb-2">{image.title}</h3>
-                  <p className="text-gray-400 text-sm">{image.description}</p>
+                  <p className="text-primary dark:text-white/70 text-sm">{image.description}</p>
                 </div>
                 
                 {/* Corner accent */}

@@ -63,7 +63,7 @@ export default function Services() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             Our Services
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-primary dark:text-white/80 dark:text-primary dark:text-white/80 max-w-2xl mx-auto">
             Comprehensive logistics solutions for all your shipping needs
           </p>
         </motion.div>
@@ -82,7 +82,7 @@ export default function Services() {
                 <service.icon className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{service.title}</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{service.description}</p>
+              <p className="text-primary dark:text-white/80 dark:text-primary dark:text-white/80 mb-4 leading-relaxed">{service.description}</p>
               <Link 
                 href="/contact" 
                 className={`inline-flex items-center text-sm font-semibold ${service.color} hover:underline`}

@@ -31,7 +31,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl text-gray-600 dark:text-gray-300 mb-8"
+            className="text-xl text-primary dark:text-white/80 dark:text-primary dark:text-white/80 mb-8"
           >
             Find the latest delivery status of your shipment
           </motion.p>
@@ -46,7 +46,7 @@ export default function Hero() {
           >
             <div className="flex flex-col sm:flex-row gap-3 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-2 border border-gray-200 dark:border-gray-700">
               <div className="flex-1 flex items-center">
-                <Package className="w-5 h-5 text-gray-400 ml-4 mr-2" />
+                <Package className="w-5 h-5 text-primary dark:text-white/70 ml-4 mr-2" />
                 <input
                   type="text"
                   value={trackingNumber}
@@ -63,7 +63,7 @@ export default function Hero() {
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
+            <p className="text-sm text-primary dark:text-white/60 dark:text-primary dark:text-white/70 mt-4">
               Enter multiple tracking numbers separated by commas or spaces.
             </p>
           </motion.form>
@@ -92,7 +92,7 @@ export default function Hero() {
               >
                 <div className="text-4xl mb-4">{step.icon}</div>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{step.desc}</p>
+                <p className="text-sm text-primary dark:text-white/80 dark:text-primary dark:text-white/70">{step.desc}</p>
               </div>
             ))}
           </div>

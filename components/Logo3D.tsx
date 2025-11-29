@@ -48,7 +48,7 @@ export default function Logo3D() {
                     <span className="text-white">Roller</span>
                     <span className="text-accent">max</span>
                   </div>
-                  <div className="text-[8px] md:text-[10px] text-gray-300 uppercase tracking-wider mt-0.5">
+                  <div className="text-[8px] md:text-[10px] text-primary dark:text-white/80 uppercase tracking-wider mt-0.5">
                     Courier
                   </div>
                 </div>
