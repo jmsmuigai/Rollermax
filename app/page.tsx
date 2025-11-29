@@ -1,25 +1,25 @@
 import Hero from '@/components/Hero'
-import Features from '@/components/Features'
+import ImageMarquee from '@/components/ImageMarquee'
 import Services from '@/components/Services'
+import MpesaIntegration from '@/components/MpesaIntegration'
 import About from '@/components/About'
 import Stats from '@/components/Stats'
 import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
-import Infographic from '@/components/Infographic'
-import ImageGallery from '@/components/ImageGallery'
+import GeminiBot from '@/components/GeminiBot'
 
 export default function Home() {
   return (
-    <div className="islamic-pattern">
+    <div className="bg-[var(--bg-primary)]">
       <Hero />
-      <Stats />
-      <ImageGallery />
+      <ImageMarquee />
       <Services />
-      <Infographic />
-      <Features />
+      <Stats />
       <About />
+      <MpesaIntegration />
       <Testimonials />
       <CTA />
+      <GeminiBot />
     </div>
   )
 }

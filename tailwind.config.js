@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['class', '[data-theme="dark"]'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,15 +10,26 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          dark: '#1A428A', // Official corporate dark blue
+          dark: '#1A428A',
           DEFAULT: '#1A428A',
           light: '#2d5aa0',
           lighter: '#3f6db5',
         },
         accent: {
-          DEFAULT: '#FF6B35', // Official corporate orange
+          DEFAULT: '#FF6B35',
           light: '#ff8c5a',
           dark: '#e55a2b',
+        },
+        mpesa: {
+          DEFAULT: '#00A651',
+          dark: '#007A3D',
+          light: '#00C853',
+        },
+        google: {
+          blue: '#4285F4',
+          red: '#EA4335',
+          yellow: '#FBBC05',
+          green: '#34A853',
         },
         gold: {
           DEFAULT: '#d4af37',

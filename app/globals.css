@@ -11,23 +11,59 @@
 }
 
 :root {
+  /* Corporate Colors */
   --primary-dark: #1A428A; /* Official corporate dark blue */
   --primary: #1A428A;
   --primary-light: #2d5aa0;
-  --accent: #FF6B35; /* Official corporate orange */
+  --accent: #FF6B35; /* Official corporate orange/red */
   --accent-light: #ff8c5a;
   --accent-dark: #e55a2b;
   --gold: #d4af37;
   --islamic-green: #006b3c;
   --islamic-blue: #1A428A;
+  
+  /* M-Pesa Colors */
+  --mpesa-green: #00A651;
+  --mpesa-dark-green: #007A3D;
+  
+  /* Google Colors */
+  --google-blue: #4285F4;
+  --google-red: #EA4335;
+  --google-yellow: #FBBC05;
+  --google-green: #34A853;
+}
+
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  --border-color: #e2e8f0;
+  --card-bg: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --bg-primary: #0f1419;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-tertiary: #a0aec0;
+  --border-color: #2d3748;
+  --card-bg: #1a1a2e;
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--primary-dark);
-  color: #ffffff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Islamic Mosque-like Geometric Pattern Background */
