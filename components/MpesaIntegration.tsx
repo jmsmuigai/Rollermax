@@ -26,7 +26,7 @@ export default function MpesaIntegration() {
               <span className="text-sm font-semibold">M-Pesa Payment</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Pay Easily with <span className="text-yellow-300">M-Pesa</span>
+              Pay Easily with <span className="text-accent">M-Pesa</span>
             </h2>
             <p className="text-xl mb-8 text-green-100 leading-relaxed">
               Fast, secure, and convenient payments using M-Pesa. Pay for your shipments instantly 
@@ -43,13 +43,13 @@ export default function MpesaIntegration() {
                   transition={{ delay: index * 0.1 }}
                   className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm p-4 rounded-lg"
                 >
-                  <feature.icon className="w-6 h-6 text-yellow-300" />
+                  <feature.icon className="w-6 h-6 text-accent" />
                   <span className="font-medium">{feature.text}</span>
                 </motion.div>
               ))}
             </div>
 
-            <button className="bg-white text-mpesa-dark px-8 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition-colors shadow-xl">
+            <button className="bg-white text-mpesa-dark px-8 py-4 rounded-lg font-bold text-lg hover:bg-accent transition-colors shadow-xl">
               Pay with M-Pesa
             </button>
           </motion.div>
@@ -95,14 +95,14 @@ export default function MpesaIntegration() {
                   ))}
                 </div>
 
-                <button className="w-full bg-yellow-300 text-mpesa-dark rounded-lg py-4 font-bold text-lg mt-4 hover:bg-yellow-400 transition-colors">
+                <button className="w-full bg-accent text-mpesa-dark rounded-lg py-4 font-bold text-lg mt-4 hover:bg-accent transition-colors">
                   Confirm Payment
                 </button>
               </div>
             </div>
             
             {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-yellow-300/30 rounded-full blur-2xl"></div>
+            <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/30 rounded-full blur-2xl"></div>
             <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
           </motion.div>
         </div>

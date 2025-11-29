@@ -16,7 +16,7 @@ module.exports = {
           lighter: '#3f6db5',
         },
         accent: {
-          DEFAULT: '#FF6B35',
+          DEFAULT: '#dc2626',
           light: '#ff8c5a',
           dark: '#e55a2b',
         },
@@ -32,7 +32,7 @@ module.exports = {
           green: '#34A853',
         },
         gold: {
-          DEFAULT: '#d4af37',
+          DEFAULT: '#dc2626',
           light: '#e5c158',
         },
         islamic: {

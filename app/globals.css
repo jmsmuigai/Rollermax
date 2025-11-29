@@ -15,10 +15,10 @@
   --primary-dark: #1A428A; /* Official corporate dark blue */
   --primary: #1A428A;
   --primary-light: #2d5aa0;
-  --accent: #FF6B35; /* Official corporate orange/red */
+  --accent: #dc2626; /* Official corporate orange/red */
   --accent-light: #ff8c5a;
   --accent-dark: #e55a2b;
-  --gold: #d4af37;
+  --gold: #dc2626;
   --islamic-green: #006b3c;
   --islamic-blue: #1A428A;
   
@@ -210,7 +210,7 @@ html {
 }
 
 .accent-gradient {
-  background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
+  background: linear-gradient(135deg, #dc2626 0%, #ff8c5a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -218,7 +218,7 @@ html {
 
 /* Button styles */
 .btn-primary {
-  background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
+  background: linear-gradient(135deg, #dc2626 0%, #ff8c5a 100%);
   padding: 12px 32px;
   border-radius: 8px;
   font-weight: 600;
@@ -234,8 +234,8 @@ html {
 
 .btn-outline {
   background: transparent;
-  border: 2px solid #ff6b35;
-  color: #ff6b35;
+  border: 2px solid #dc2626;
+  color: #dc2626;
   padding: 12px 32px;
   border-radius: 8px;
   font-weight: 600;
@@ -244,7 +244,7 @@ html {
 }
 
 .btn-outline:hover {
-  background: #ff6b35;
+  background: #dc2626;
   color: white;
   transform: translateY(-2px);
 }
@@ -278,7 +278,7 @@ html {
 
 .input-field:focus {
   outline: none;
-  border-color: #ff6b35;
+  border-color: #dc2626;
   background: rgba(255, 255, 255, 0.15);
 }
 
