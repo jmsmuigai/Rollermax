@@ -59,7 +59,7 @@ export default function ContactPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Contact <span className="accent-gradient">Us</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-primary dark:text-white/80 max-w-2xl mx-auto">
             Have a question or need assistance? We're here to help. Reach out to us through any of the channels below.
           </p>
         </motion.div>
@@ -82,13 +82,13 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-2">Phone Numbers</h3>
-                    <a href="tel:+254722227172" className="text-gray-300 hover:text-accent transition-colors block">
+                    <a href="tel:+254722227172" className="text-primary dark:text-white/80 hover:text-accent transition-colors block">
                       0722 227 172
                     </a>
-                    <a href="tel:+254714848821" className="text-gray-300 hover:text-accent transition-colors block">
+                    <a href="tel:+254714848821" className="text-primary dark:text-white/80 hover:text-accent transition-colors block">
                       0714 848 821
                     </a>
-                    <p className="text-gray-500 text-sm mt-1">Available 24/7</p>
+                    <p className="text-primary dark:text-white/70 text-sm mt-1">Available 24/7</p>
                   </div>
                 </div>
 
@@ -98,10 +98,10 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-2">Email</h3>
-                    <a href="mailto:info@rollermax.co.ke" className="text-gray-300 hover:text-accent transition-colors">
+                    <a href="mailto:info@rollermax.co.ke" className="text-primary dark:text-white/80 hover:text-accent transition-colors">
                       info@rollermax.co.ke
                     </a>
-                    <p className="text-gray-500 text-sm mt-1">We respond within 24 hours</p>
+                    <p className="text-primary dark:text-white/70 text-sm mt-1">We respond within 24 hours</p>
                   </div>
                 </div>
 
@@ -111,7 +111,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-2">Address</h3>
-                    <p className="text-gray-300">
+                    <p className="text-primary dark:text-white/80">
                       8th Street Eastleigh<br />
                       Al Hamdu Plaza<br />
                       Nairobi, Kenya
@@ -125,7 +125,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-white font-semibold mb-2">Business Hours</h3>
-                    <p className="text-gray-300">
+                    <p className="text-primary dark:text-white/80">
                       Monday - Friday: 8:00 AM - 6:00 PM<br />
                       Saturday: 9:00 AM - 4:00 PM<br />
                       Sunday: Closed
@@ -141,7 +141,7 @@ export default function ContactPage() {
                 <Sparkles className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
                 <div>
                   <h3 className="text-white font-bold mb-2">24/7 AI Support</h3>
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-primary dark:text-white/80 text-sm">
                     Our AI-powered support system is available around the clock to assist you 
                     with tracking, quotes, and general inquiries. Get instant answers to your questions.
                   </p>
@@ -171,7 +171,7 @@ export default function ContactPage() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-primary dark:text-white/80 mb-2">
                     Full Name *
                   </label>
                   <input
@@ -188,7 +188,7 @@ export default function ContactPage() {
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="email" className="block text-gray-300 mb-2">
+                    <label htmlFor="email" className="block text-primary dark:text-white/80 mb-2">
                       Email Address *
                     </label>
                     <input
@@ -203,7 +203,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-gray-300 mb-2">
+                    <label htmlFor="phone" className="block text-primary dark:text-white/80 mb-2">
                       Phone Number *
                     </label>
                     <input
@@ -220,7 +220,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="service" className="block text-gray-300 mb-2">
+                  <label htmlFor="service" className="block text-primary dark:text-white/80 mb-2">
                     Service Interested In *
                   </label>
                   <select
@@ -244,7 +244,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-primary dark:text-white/80 mb-2">
                     Message *
                   </label>
                   <textarea
