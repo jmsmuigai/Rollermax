@@ -40,7 +40,7 @@ const services = [
     icon: Home,
     title: 'Packaging & Crating',
     description: 'Professional packaging and crating to protect your items during transit.',
-    color: 'text-orange-600 dark:text-orange-400',
+    color: 'text-accent dark:text-accent-light',
   },
   {
     icon: Truck,

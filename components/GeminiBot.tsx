@@ -38,7 +38,7 @@ export default function GeminiBot() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-r from-google-blue via-google-red to-google-yellow rounded-full shadow-2xl flex items-center justify-center text-white hover:shadow-google-blue/50 transition-shadow"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-r from-google-blue via-google-red to-accent rounded-full shadow-2xl flex items-center justify-center text-white hover:shadow-google-blue/50 transition-shadow"
         aria-label="Open Gemini Chat"
       >
         <MessageCircle className="w-8 h-8" />
@@ -61,7 +61,7 @@ export default function GeminiBot() {
             className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl flex flex-col border border-gray-200 dark:border-gray-700"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-google-blue via-google-red to-google-yellow p-4 rounded-t-2xl flex items-center justify-between">
+            <div className="bg-gradient-to-r from-google-blue via-google-red to-accent p-4 rounded-t-2xl flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
                   <Bot className="w-6 h-6 text-google-blue" />
