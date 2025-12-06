@@ -3,12 +3,21 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { X, Package, Image as ImageIcon } from 'lucide-react'
+import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import ImageLoader from '@/components/ImageLoader'
-import { galleryImages } from '@/lib/images'
+import SectionBackground from '@/components/SectionBackground'
 
-const images = galleryImages
+const images = [
+  { src: '/images/camel.png', label: 'Traditional Camel Delivery', category: 'Traditional' },
+  { src: '/images/Motorcycle.png', label: 'Urban Motorcycle Courier', category: 'Urban' },
+  { src: '/images/Aeroplane.png', label: 'International Air Cargo', category: 'International' },
+  { src: '/images/lorry.png', label: 'Heavy Freight Transport', category: 'Freight' },
+  { src: '/images/Banner.png', label: 'Rollermax Brand', category: 'Brand' },
+  { src: '/images/PHOTO-2025-11-11-17-25-50.jpg', label: 'Delivery Service', category: 'Services' },
+  { src: '/images/PHOTO-2025-11-11-15-06-26.jpg', label: 'Logistics Operations', category: 'Operations' },
+  { src: '/images/Screenshot 2025-11-11 at 12.28.08.png', label: 'Customer Service', category: 'Services' },
+]
 
 export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -18,11 +27,12 @@ export default function GalleryPage() {
   const filteredImages = filter === 'All' ? images : images.filter(img => img.category === filter)
 
   return (
-    <div className="min-h-screen parcel-theme-bg islamic-theme-bg">
+    <div className="min-h-screen bg-gradient-to-br from-primary-dark via-primary to-primary-dark">
       <Navbar />
       
-      <div className="pt-24 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <SectionBackground imageSrc="/images/Banner.png">
+        <div className="pt-24 pb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -68,16 +78,18 @@ export default function GalleryPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 }}
-                className="card-islamic cursor-pointer group bg-white/5 backdrop-blur-md"
+                className="card cursor-pointer group bg-white/10 backdrop-blur-md border-2 border-accent/20 hover:border-accent/50 transition-all"
                 onClick={() => setSelectedImage(image.src)}
               >
                 <div className="relative h-64 overflow-hidden rounded-lg mb-4">
-                  <ImageLoader
+                  <Image
                     src={image.src}
                     alt={image.label}
-                    className="w-full h-full object-cover"
-                    priority={index < 3}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    unoptimized
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
@@ -109,17 +121,20 @@ export default function GalleryPage() {
                 >
                   <X className="w-6 h-6" />
                 </button>
-                <ImageLoader
+                <Image
                   src={selectedImage}
                   alt="Full size"
+                  width={1200}
+                  height={800}
                   className="max-w-full max-h-[90vh] object-contain rounded-lg"
-                  priority
+                  unoptimized
                 />
               </motion.div>
             </motion.div>
           )}
+          </div>
         </div>
-      </div>
+      </SectionBackground>
 
       <Footer />
     </div>

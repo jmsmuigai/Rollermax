@@ -52,18 +52,31 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 bg-white dark:bg-[var(--bg-secondary)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 relative overflow-hidden bg-gradient-to-br from-primary-dark via-primary/90 to-primary-dark">
+      {/* Modern background with pattern */}
+      <div className="absolute inset-0">
+        {/* Islamic geometric pattern overlay */}
+        <div className="absolute inset-0 opacity-15" style={{
+          backgroundImage: `
+            repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(220, 38, 38, 0.08) 30px, rgba(220, 38, 38, 0.08) 60px),
+            repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(26, 66, 138, 0.08) 30px, rgba(26, 66, 138, 0.08) 60px)
+          `,
+        }}></div>
+        {/* Decorative gradients */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             Our Services
           </h2>
-          <p className="text-xl text-primary dark:text-white/80 dark:text-primary dark:text-white/80 max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 max-w-2xl mx-auto">
             Comprehensive logistics solutions for all your shipping needs
           </p>
         </motion.div>
@@ -76,16 +89,16 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-white/10 backdrop-blur-md p-6 rounded-xl shadow-lg border-2 border-accent/20 hover:border-accent/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className={`w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-4 ${service.color}`}>
+              <div className={`w-12 h-12 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center mb-4 border border-accent/30 ${service.color}`}>
                 <service.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{service.title}</h3>
-              <p className="text-primary dark:text-white/80 dark:text-primary dark:text-white/80 mb-4 leading-relaxed">{service.description}</p>
+              <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
+              <p className="text-white/80 mb-4 leading-relaxed">{service.description}</p>
               <Link 
                 href="/contact" 
-                className={`inline-flex items-center text-sm font-semibold ${service.color} hover:underline`}
+                className="inline-flex items-center text-sm font-semibold text-accent hover:text-accent-light transition-colors"
               >
                 Learn More →
               </Link>
@@ -101,7 +114,7 @@ export default function Services() {
         >
           <Link 
             href="/contact" 
-            className="inline-block bg-primary-dark dark:bg-accent text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-light dark:hover:bg-accent-light transition-colors"
+            className="inline-block bg-gradient-to-r from-accent to-accent-light text-white px-8 py-3 rounded-lg font-semibold hover:from-accent-light hover:to-accent transition-all shadow-lg hover:shadow-xl"
           >
             Get a Quote
           </Link>

@@ -12,8 +12,14 @@ export default function MpesaIntegration() {
   ]
 
   return (
-    <section className="py-16 bg-gradient-to-br from-mpesa-dark via-mpesa-DEFAULT to-mpesa-light">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 bg-gradient-to-br from-[#007A3D] via-[#00A651] to-[#00A651] relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: `
+          repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 255, 255, 0.1) 20px, rgba(255, 255, 255, 0.1) 40px)
+        `,
+      }}></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -62,7 +68,7 @@ export default function MpesaIntegration() {
           >
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
               {/* M-Pesa Phone Mockup */}
-              <div className="bg-gradient-to-br from-mpesa-DEFAULT to-mpesa-dark rounded-2xl p-8 text-white">
+              <div className="bg-gradient-to-br from-[#00A651] to-[#007A3D] rounded-2xl p-8 text-white">
                 <div className="text-center mb-6">
                   <div className="text-5xl mb-4">📱</div>
                   <h3 className="text-2xl font-bold mb-2">M-Pesa STK Push</h3>

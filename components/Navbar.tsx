@@ -74,7 +74,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative logo-container">
               <img
-                src="/Rollermax/images/Rollermax logo.png"
+                src="/images/Rollermax logo.png"
                 alt="Rollermax Logo"
                 className="logo-image"
                 width={60}

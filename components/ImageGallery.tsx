@@ -88,12 +88,13 @@ export default function ImageGallery() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     onError={(e) => {
-                      // Fallback to fallback image or placeholder
+                      // Fallback to fallback image
                       const target = e.target as HTMLImageElement
-                      if (image.fallbackSrc) {
+                      if (image.fallbackSrc && target.src !== image.fallbackSrc) {
                         target.src = image.fallbackSrc
                       }
                     }}
+                    unoptimized
                   />
                   
                   {/* Gradient overlay */}
