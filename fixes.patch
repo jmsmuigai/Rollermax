@@ -1,0 +1,38 @@
+--- a/components/Hero.tsx
++++ b/components/Hero.tsx
+@@ -47,12 +47,9 @@
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.6, delay: 0.2 }}
+         >
+-          <Link href="/contact">
+-            <a className="bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-max mx-auto">
+-              <span>Get a Free Quote</span>
+-              <ArrowRight className="w-5 h-5" />
+-            </a>
+-          </Link>
++          <Link href="/contact" className="bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-max mx-auto">
++              <span>Get a Free Quote</span>
++              <ArrowRight className="w-5 h-5" />
++          </Link>
+         </motion.div>
+       </div>
+     </section>
+--- a/components/CTA.tsx
++++ b/components/CTA.tsx
+@@ -21,12 +21,9 @@
+             Experience the future of logistics with Rollermax. Fast, secure, and AI-powered delivery services.
+           </p>
+ 
+-          <Link href="/contact">
+-            <a className="bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl inline-flex items-center space-x-2">
+-              <span>Get Started Today</span>
+-              <ArrowRight className="w-5 h-5" />
+-            </a>
+-          </Link>
++          <Link href="/contact" className="bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl inline-flex items-center space-x-2">
++            <span>Get Started Today</span>
++            <ArrowRight className="w-5 h-5" />
++          </Link>
+         </motion.div>
+       </div>
+     </section>

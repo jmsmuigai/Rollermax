@@ -1,0 +1,144 @@
+--- a/components/Hero.tsx
++++ b/components/Hero.tsx
+@@ -47,12 +47,9 @@
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.6, delay: 0.2 }}
+         >
+-          <Link href="/contact">
+-            <a className="bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-max mx-auto">
+-              <span>Get a Free Quote</span>
+-              <ArrowRight className="w-5 h-5" />
+-            </a>
+-          </Link>
++          <Link href="/contact" className="bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-max mx-auto">
++              <span>Get a Free Quote</span>
++              <ArrowRight className="w-5 h-5" />
++          </Link>
+         </motion.div>
+       </div>
+     </section>
+--- a/components/CTA.tsx
++++ b/components/CTA.tsx
+@@ -21,12 +21,9 @@
+             Experience the future of logistics with Rollermax. Fast, secure, and AI-powered delivery services.
+           </p>
+ 
+-          <Link href="/contact">
+-            <a className="bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl inline-flex items-center space-x-2">
+-              <span>Get Started Today</span>
+-              <ArrowRight className="w-5 h-5" />
+-            </a>
+-          </Link>
++          <Link href="/contact" className="bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl inline-flex items-center space-x-2">
++            <span>Get Started Today</span>
++            <ArrowRight className="w-5 h-5" />
++          </Link>
+         </motion.div>
+       </div>
+     </section>
+--- a/app/track/page.tsx
++++ b/app/track/page.tsx
+@@ -1,5 +1,5 @@
+ 'use client'
+ 
+-import { useState, useEffect, Suspense } from 'react'
++import { useState, useEffect, Suspense, useCallback } from 'react'
+ import { useSearchParams } from 'next/navigation'
+ import { motion } from 'framer-motion'
+ import { 
+@@ -87,35 +87,35 @@
+   const [isLoading, setIsLoading] = useState(false)
+   const [error, setError] = useState('')
+ 
+-  useEffect(() => {
+-    const number = searchParams?.get('number')
+-    if (number) {
+-      setTrackingNumber(number)
+-      handleTrack(number)
+-    }
+-    // eslint-disable-next-line react-hooks/exhaustive-deps
+-  }, [searchParams])
+-
+-  const handleTrack = async (number?: string) => {
+-    const num = number || trackingNumber
+-    if (!num.trim()) {
+-      setError('Please enter a tracking number')
+-      return
+-    }
+-
+-    setIsLoading(true)
+-    setError('')
++  const handleTrack = useCallback(async (number?: string) => {
++    const num = number || trackingNumber;
++    if (!num.trim()) {
++      setError('Please enter a tracking number');
++      return;
++    }
++
++    setIsLoading(true);
++    setError('');
+     
+     // Simulate API call
+     setTimeout(() => {
+-      const data = mockTrackingData[num.toUpperCase()]
++      const data = mockTrackingData[num.toUpperCase()];
+       if (data) {
+-        setTrackingData(data)
++        setTrackingData(data);
+       } else {
+-        setError('Tracking number not found. Please check and try again.')
+-        setTrackingData(null)
++        setError('Tracking number not found. Please check and try again.');
++        setTrackingData(null);
+       }
+-      setIsLoading(false)
+-    }, 1500)
+-  }
++      setIsLoading(false);
++    }, 1500);
++  }, [trackingNumber]);
++
++  useEffect(() => {
++    const number = searchParams?.get('number');
++    if (number) {
++      setTrackingNumber(number);
++      handleTrack(number);
++    }
++  }, [searchParams, handleTrack]);
+ 
+   const getStatusColor = (status: string) => {
+     switch (status.toLowerCase()) {
+--- a/components/Navbar.tsx
++++ b/components/Navbar.tsx
+@@ -53,13 +53,13 @@
+   }
+ 
+   const navItems = [
+-    { href: '/', label: 'Home', icon: '🏠' },
+-    { href: '/#services', label: 'Services', icon: '🚚' },
+-    { href: '/#about', label: 'About', icon: '📦' },
+-    { href: '/track', label: 'Track Shipment', icon: '📍' },
+-    { href: '/gallery', label: 'Gallery', icon: '🖼️' },
+-    { href: '/contact', label: 'Contact', icon: '📞' },
+-  ]
++    { href: '/', label: 'Home', icon: '🏠' },
++    { href: '#services', label: 'Services', icon: '🚚' },
++    { href: '#about', label: 'About', icon: '📦' },
++    { href: '/track', label: 'Track Shipment', icon: '📍' },
++    { href: '/gallery', label: 'Gallery', icon: '🖼️' },
++    { href: '/contact', label: 'Contact', icon: '📞' },
++  ];
+ 
+   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+     if (href.startsWith('#')) {
+@@ -93,7 +93,7 @@
+             </div>
+             <div className="flex flex-col">
+               <span className="logo-text text-2xl font-bold">
+-                Roller<span className="text-accent-red">max</span>
++                Roller<span className="text-accent">max</span>
+               </span>
+               <span className="text-xs text-gray-300 uppercase tracking-wider group-hover:text-accent transition-colors">
+                 Courier & Logistics
+</tbody>
+</table>

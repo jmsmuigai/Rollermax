@@ -1,27 +1,21 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Package } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Hero() {
-  const [trackingNumber, setTrackingNumber] = useState('')
-
-  const handleTrack = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (trackingNumber.trim()) {
-      window.location.href = `/track?number=${trackingNumber}`
-    }
-  }
-
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center text-white overflow-hidden">
       <div className="absolute inset-0">
-        <img
+        <Image
           src="/images/Banner.png"
           alt="Background"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          unoptimized
         />
         <div className="absolute inset-0 bg-primary-dark opacity-80"></div>
       </div>
@@ -49,11 +43,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Link href="/contact">
-            <a className="bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-max mx-auto">
+          <Link href="/contact" className="bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-max mx-auto">
               <span>Get a Free Quote</span>
               <ArrowRight className="w-5 h-5" />
-            </a>
           </Link>
         </motion.div>
       </div>

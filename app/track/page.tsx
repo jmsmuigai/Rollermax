@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense, useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { 
@@ -75,37 +75,36 @@ function TrackPageContent() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    const number = searchParams?.get('number')
-    if (number) {
-      setTrackingNumber(number)
-      handleTrack(number)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
-
-  const handleTrack = async (number?: string) => {
-    const num = number || trackingNumber
+  const handleTrack = useCallback(async (number?: string) => {
+    const num = number || trackingNumber;
     if (!num.trim()) {
-      setError('Please enter a tracking number')
-      return
+      setError('Please enter a tracking number');
+      return;
     }
 
-    setIsLoading(true)
-    setError('')
+    setIsLoading(true);
+    setError('');
     
     // Simulate API call
     setTimeout(() => {
-      const data = mockTrackingData[num.toUpperCase()]
+      const data = mockTrackingData[num.toUpperCase()];
       if (data) {
-        setTrackingData(data)
+        setTrackingData(data);
       } else {
-        setError('Tracking number not found. Please check and try again.')
-        setTrackingData(null)
+        setError('Tracking number not found. Please check and try again.');
+        setTrackingData(null);
       }
-      setIsLoading(false)
-    }, 1500)
-  }
+      setIsLoading(false);
+    }, 1500);
+  }, [trackingNumber]);
+
+  useEffect(() => {
+    const number = searchParams?.get('number');
+    if (number) {
+      setTrackingNumber(number);
+      handleTrack(number);
+    }
+  }, [searchParams, handleTrack]);
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {

@@ -43,8 +43,8 @@ export default function Navbar() {
 
   const navItems = [
     { href: '/', label: 'Home', icon: '🏠' },
-    { href: '/#services', label: 'Services', icon: '🚚' },
-    { href: '/#about', label: 'About', icon: '📦' },
+    { href: '#services', label: 'Services', icon: '🚚' },
+    { href: '#about', label: 'About', icon: '📦' },
     { href: '/track', label: 'Track Shipment', icon: '📍' },
     { href: '/gallery', label: 'Gallery', icon: '🖼️' },
     { href: '/contact', label: 'Contact', icon: '📞' },
@@ -87,7 +87,7 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col">
               <span className="logo-text text-2xl font-bold">
-                Roller<span className="text-accent-red">max</span>
+                Roller<span className="text-accent">max</span>
               </span>
               <span className="text-xs text-gray-300 uppercase tracking-wider group-hover:text-accent transition-colors">
                 Courier & Logistics

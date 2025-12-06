@@ -20,11 +20,9 @@ export default function CTA() {
             Experience the future of logistics with Rollermax. Fast, secure, and AI-powered delivery services.
           </p>
 
-          <Link href="/contact">
-            <a className="bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl inline-flex items-center space-x-2">
-              <span>Get Started Today</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
+          <Link href="/contact" className="bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl inline-flex items-center space-x-2">
+            <span>Get Started Today</span>
+            <ArrowRight className="w-5 h-5" />
           </Link>
         </motion.div>
       </div>
