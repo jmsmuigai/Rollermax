@@ -2,15 +2,15 @@
 
 import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
-import SectionBackground from './SectionBackground'
 
 const testimonials = [
   {
     name: 'Ahmed Hassan',
     location: 'Nairobi, Kenya',
     rating: 5,
-    text: 'Rollermax has been incredible! The AI tracking feature is amazing - I always know exactly where my packages are. Their service to the Somali community is unmatched.',
+    text: 'Rollermax has been incredible! The AI tracking feature is amazing - I always know exactly where my packages are.',
     role: 'Business Owner',
+    avatar: '/images/avatar1.png',
   },
   {
     name: 'Fatima Ali',
@@ -18,6 +18,7 @@ const testimonials = [
     rating: 5,
     text: 'Fast, reliable, and professional. They understand our needs and deliver with excellence. Highly recommend for anyone looking for trustworthy courier services.',
     role: 'E-commerce Trader',
+    avatar: '/images/avatar2.png',
   },
   {
     name: 'Omar Mohamed',
@@ -25,24 +26,24 @@ const testimonials = [
     rating: 5,
     text: 'The real-time updates and AI monitoring give me complete peace of mind. Rollermax truly cares about their customers and goes above and beyond.',
     role: 'Entrepreneur',
+    avatar: '/images/avatar3.png',
   },
 ]
 
 export default function Testimonials() {
   return (
-    <SectionBackground imageSrc="/images/Screenshot 2025-11-11 at 12.28.08.png">
-      <section className="section-padding bg-primary/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-secondary">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            What Our <span className="accent-gradient">Customers Say</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-primary-dark mb-4">
+            What Our Customers Say
           </h2>
-          <p className="text-xl text-primary dark:text-white/80 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Don't just take our word for it - hear from our satisfied customers
           </p>
         </motion.div>
@@ -55,28 +56,27 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="card relative"
+              className="bg-white p-8 rounded-lg shadow-md"
             >
-              <Quote className="absolute top-6 right-6 w-12 h-12 text-accent/20" />
+              <div className="flex items-center mb-6">
+                <img src={testimonial.avatar} alt={testimonial.name} className="w-16 h-16 rounded-full mr-4" />
+                <div>
+                  <p className="font-bold text-primary-dark text-lg">{testimonial.name}</p>
+                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                </div>
+              </div>
               <div className="flex space-x-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-accent text-accent" />
                 ))}
               </div>
-              <p className="text-primary dark:text-white/80 mb-6 leading-relaxed relative z-10">
+              <p className="text-gray-600 mb-6 leading-relaxed">
                 "{testimonial.text}"
               </p>
-              <div className="border-t border-accent/20 pt-4">
-                <p className="font-bold text-white">{testimonial.name}</p>
-                <p className="text-sm text-primary dark:text-white/70">{testimonial.role}</p>
-                <p className="text-xs text-primary dark:text-white/60 mt-1">{testimonial.location}</p>
-              </div>
             </motion.div>
           ))}
         </div>
-        </div>
-      </section>
-    </SectionBackground>
+      </div>
+    </section>
   )
 }
-

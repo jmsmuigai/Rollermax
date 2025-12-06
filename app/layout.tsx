@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
+import { Inter, Lexend } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const lexend = Lexend({ subsets: ['latin'], variable: '--font-lexend' })
 
 export const metadata: Metadata = {
   title: 'Rollermax Courier - AI-Powered Logistics & Delivery Services',
@@ -20,7 +24,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
+      <body className={`${inter.variable} ${lexend.variable} min-h-screen bg-background text-text transition-colors duration-300 font-sans`}>
         <ThemeProvider>
           <Navbar />
           <main>{children}</main>

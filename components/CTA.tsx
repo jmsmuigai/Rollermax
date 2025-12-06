@@ -1,57 +1,33 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Phone, Mail } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import SectionBackground from './SectionBackground'
 
 export default function CTA() {
   return (
-    <SectionBackground imageSrc="/images/Banner.png">
-      <section className="section-padding relative overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/50 to-blue-500/20 z-0"></div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-primary-dark">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Ready to Ship? <span className="accent-gradient">Get Started Today</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            Ready to Ship?
           </h2>
-          <p className="text-xl text-primary dark:text-white/80 mb-10 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
             Experience the future of logistics with Rollermax. Fast, secure, and AI-powered delivery services.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Link href="/contact" className="btn-primary flex items-center space-x-2">
-              <span>Get a Quote</span>
+          <Link href="/contact">
+            <a className="bg-accent hover:bg-accent-light text-white px-10 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl inline-flex items-center space-x-2">
+              <span>Get Started Today</span>
               <ArrowRight className="w-5 h-5" />
-            </Link>
-            <a href="tel:+254722227172" className="btn-outline flex items-center space-x-2">
-              <Phone className="w-5 h-5" />
-              <span>Call Us Now</span>
             </a>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-primary dark:text-white/80">
-            <a href="tel:+254722227172" className="flex items-center space-x-2 hover:text-accent transition-colors">
-              <Phone className="w-5 h-5" />
-              <span>0722 227 172</span>
-            </a>
-            <span className="hidden sm:block">|</span>
-            <a href="tel:+254714848821" className="flex items-center space-x-2 hover:text-accent transition-colors">
-              <Phone className="w-5 h-5" />
-              <span>0714 848 821</span>
-            </a>
-          </div>
+          </Link>
         </motion.div>
-        </div>
-      </section>
-    </SectionBackground>
+      </div>
+    </section>
   )
 }
-
