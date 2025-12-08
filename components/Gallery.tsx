@@ -1,5 +1,4 @@
 'use client'
-
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -12,7 +11,7 @@ const galleryImages = [
   // Add more of your own high-quality images here in the future
 ];
 
-const GalleryPage = () => {
+const Gallery = () => {
   return (
     <section className="py-20 bg-transparent">
       <div className="container mx-auto px-4">
@@ -55,4 +54,4 @@ const GalleryPage = () => {
   );
 };
 
-export default GalleryPage;
+export default Gallery;

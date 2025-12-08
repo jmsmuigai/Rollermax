@@ -1,128 +1,70 @@
-# Rollermax Courier & Logistics Website
+I have analyzed the `autofixes.patch` and `fixes.patch` files and confirmed that all the specified changes are already present in your codebase. The primary issue, which was the incorrect use of `<Link>` tags, has been resolved in all relevant files (`components/Hero.tsx`, `components/CTA.tsx`, `app/track/page.tsx`, and `components/Navbar.tsx`).
 
-A modern, beautiful, and professional website for Rollermax Courier & Logistics Ltd, featuring AI-powered tracking, Islamic/Somali cultural theme, and comprehensive courier services.
+Unfortunately, I am unable to proceed with the deployment steps you provided (cleaning the `.next` and `out` folders and running `npm run build`). The environment I am operating in does not permit the execution of shell commands like `rm` or `ls`, which is why my previous attempts failed.
 
-## Features
+As you suggested, here is the full, corrected code for `components/Hero.tsx`. You can use this to verify the changes yourself.
 
-- 🚀 **Modern Design**: Built with Next.js 14, React, and Tailwind CSS
-- 🤖 **AI-Powered Tracking**: Real-time shipment monitoring with AI updates
-- 📱 **Fully Responsive**: Works seamlessly on all devices
-- 🎨 **Islamic/Somali Theme**: Beautiful cultural elements and geometric patterns
-- 📦 **Service Showcase**: Comprehensive display of all courier services
-- 📍 **Tracking System**: Interactive shipment tracking with detailed history
-- 💬 **Contact Forms**: Easy-to-use contact and quote request forms
-- ⚡ **Fast Performance**: Optimized for speed and SEO
+```tsx
+'use client'
 
-## Services Offered
+import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
 
-- Local & International Shipping
-- Freight Forwarding
-- Parcel & Document Delivery
-- Customs Clearance
-- Packaging & Crating
-- Door to Door Delivery
+export default function Hero() {
+  return (
+    <section className="relative min-h-[70vh] flex items-center justify-center text-white overflow-hidden">
+      <div className="absolute inset-0">
+        <Image
+          src="/images/Banner.png"
+          alt="Background"
+          fill
+          className="object-cover"
+          priority
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-primary-dark opacity-80"></div>
+      </div>
 
-## Technology Stack
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-6xl font-display font-bold mb-6"
+        >
+          Reliable & Efficient Logistics
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-lg md:text-xl text-gray-200 mb-8"
+        >
+          Your trusted partner for courier and logistics services. Fast, secure, and always on time.
+        </motion.p>
 
-- **Framework**: Next.js 14
-- **UI Library**: React 18
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Language**: TypeScript
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ installed
-- npm or yarn package manager
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/jmsmuigai/Rollermax.git
-cd Rollermax
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Link href="/contact" className="bg-accent hover:bg-accent-light text-white px-8 py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 w-max mx-auto">
+              <span>Get a Free Quote</span>
+              <ArrowRight className="w-5 h-5" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+To get your website running, please follow the deployment strategy you outlined:
 
-3. Run the development server:
-```bash
-npm run dev
-```
+1.  **Clean:** Manually delete the `.next` and `out` folders.
+2.  **Build:** Run `npm run build` in your terminal.
+3.  **Deploy:** Proceed with your chosen deployment method (Firebase or GitHub Pages).
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Build for Production
-
-```bash
-npm run build
-npm start
-```
-
-## Deployment
-
-This website is configured for static export and can be deployed to:
-
-- GitHub Pages
-- Netlify
-- Vercel
-- Any static hosting service
-
-### GitHub Pages Deployment
-
-1. Build the site:
-```bash
-npm run build
-```
-
-2. The `out` folder will contain the static files
-3. Configure GitHub Pages to serve from the `out` folder or `gh-pages` branch
-
-## Project Structure
-
-```
-Rollermax/
-├── app/
-│   ├── contact/          # Contact page
-│   ├── track/            # Tracking page
-│   ├── globals.css       # Global styles
-│   ├── layout.tsx        # Root layout
-│   └── page.tsx          # Homepage
-├── components/
-│   ├── Navbar.tsx        # Navigation component
-│   ├── Footer.tsx        # Footer component
-│   ├── Hero.tsx          # Hero section
-│   ├── Services.tsx      # Services section
-│   ├── Features.tsx      # Features section
-│   ├── About.tsx         # About section
-│   ├── Stats.tsx         # Statistics section
-│   ├── Testimonials.tsx  # Testimonials section
-│   └── CTA.tsx           # Call-to-action section
-├── public/               # Static assets
-└── package.json          # Dependencies
-```
-
-## Contact Information
-
-- **Phone**: 0722 227 172 / 0714 848 821
-- **Email**: info@rollermax.co.ke
-- **Address**: 8th Street Eastleigh, Al Hamdu Plaza, Nairobi, Kenya
-
-## Vision
-
-To become the most trusted and technologically advanced courier service in East Africa, known for our cultural sensitivity, technological innovation, and unwavering commitment to customer satisfaction.
-
-## Mission
-
-To provide reliable, fast, and secure courier and logistics services that connect people and businesses across Kenya and beyond. We leverage advanced AI-powered monitoring systems to ensure real-time tracking and updates, while maintaining the highest standards of service quality.
-
-## License
-
-© 2024 Rollermax Courier & Logistics Ltd. All rights reserved.
-
+Let me know if you have any other questions.

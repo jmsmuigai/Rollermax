@@ -24,7 +24,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`${inter.variable} ${lexend.variable} min-h-screen bg-background text-text transition-colors duration-300 font-sans`}>
+      <body className={`${inter.variable} ${lexend.variable} min-h-screen transition-colors duration-300 font-sans bg-islamic-pattern`}>
         <ThemeProvider>
           <Navbar />
           <main>{children}</main>
