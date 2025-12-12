@@ -170,6 +170,7 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
             onChange={e => setEmail(e.target.value)}
             type="email" 
             placeholder="Email Address"
+            aria-label="Email address"
             className="w-full p-3 bg-white/90 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue"
           />
           <div className="relative">
@@ -178,6 +179,7 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
               onChange={e => setPassword(e.target.value)}
               type={showPassword ? 'text' : 'password'} 
               placeholder="Password"
+              aria-label="Password"
               className="w-full p-3 bg-white/90 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue pr-12"
             />
             <button type="button" onClick={() => setShowPassword(s => !s)} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500">
@@ -188,11 +190,13 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
             <button type="button" onClick={handleResetPassword} className="text-roller-blue hover:underline">Forgot password?</button>
           </div>
           <div className="flex gap-3">
-            <button onClick={handleSignIn} disabled={loading} className="flex-1 py-3 bg-roller-blue text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-              Sign In
+            <button onClick={handleSignIn} disabled={loading} aria-busy={loading} className="flex-1 py-3 bg-roller-blue text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+              {loading && <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>}
+              <span>Sign In</span>
             </button>
-            <button onClick={handleSignUp} disabled={loading} className="flex-1 py-3 bg-roller-red text-white rounded-lg font-semibold hover:opacity-90">
-              Register
+            <button onClick={handleSignUp} disabled={loading} aria-busy={loading} className="flex-1 py-3 bg-roller-red text-white rounded-lg font-semibold hover:opacity-90 flex items-center justify-center gap-2">
+              {loading && <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>}
+              <span>Register</span>
             </button>
           </div>
         </div>

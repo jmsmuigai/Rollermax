@@ -3,6 +3,8 @@
 import { useState, useEffect, Suspense, useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
+import { db } from '../../lib/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 import { 
   Search, 
   Package, 
@@ -13,6 +15,9 @@ import {
   Sparkles,
   AlertCircle 
 } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+const MapTracker = dynamic(() => import('../../components/MapTracker'), { ssr: false })
 
 interface TrackingStatus {
   status: string
@@ -27,6 +32,7 @@ const mockTrackingData: Record<string, {
   currentLocation: string
   estimatedDelivery: string
   history: TrackingStatus[]
+  route?: [number, number][]
 }> = {
   'RMX123456': {
     trackingNumber: 'RMX123456',
@@ -65,6 +71,14 @@ const mockTrackingData: Record<string, {
         description: 'Package picked up from sender',
       },
     ],
+    // Simulated route: Eastleigh (Nairobi) -> Thika -> Garissa
+    route: [
+      [-1.286389, 36.827223], // Nairobi (Eastleigh approx)
+      [-1.100000, 36.933333], // en route
+      [-1.033333, 37.069111], // Thika
+      [-0.500000, 37.900000], // passing
+      [-0.456000, 39.648000], // Garissa
+    ]
   },
 }
 
@@ -84,9 +98,30 @@ function TrackPageContent() {
 
     setIsLoading(true);
     setError('');
-    
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Try to fetch from Firestore first
+      const ref = doc(db, 'shipments', num.toUpperCase())
+      const snap = await getDoc(ref)
+      if (snap.exists()) {
+        const data = snap.data()
+        // Normalize route to [lat,lng][] if stored as objects
+        const route = Array.isArray(data.route)
+          ? data.route.map((p: any) => (Array.isArray(p) ? [p[0], p[1]] : [p.lat, p.lng]))
+          : undefined
+
+        setTrackingData({
+          trackingNumber: data.trackingNumber || num.toUpperCase(),
+          status: data.status || 'In Transit',
+          currentLocation: data.currentLocation || 'On Route',
+          estimatedDelivery: data.estimatedDelivery || new Date().toISOString(),
+          history: data.history || [],
+          route,
+        })
+        setIsLoading(false)
+        return
+      }
+
+      // fallback to mock
       const data = mockTrackingData[num.toUpperCase()];
       if (data) {
         setTrackingData(data);
@@ -94,8 +129,13 @@ function TrackPageContent() {
         setError('Tracking number not found. Please check and try again.');
         setTrackingData(null);
       }
+    } catch (e) {
+      console.error('Error fetching shipment', e)
+      setError('Error fetching tracking information')
+      setTrackingData(null)
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   }, [trackingNumber]);
 
   useEffect(() => {
@@ -281,6 +321,16 @@ function TrackPageContent() {
                   </motion.div>
                 ))}
               </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Map Simulation */}
+        {trackingData && trackingData.route && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-8">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h3 className="text-white font-bold mb-4">Track on Map</h3>
+              <MapTracker route={trackingData.route} center={trackingData.route[0]} zoom={7} satellite />
             </div>
           </motion.div>
         )}

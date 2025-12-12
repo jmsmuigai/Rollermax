@@ -20,28 +20,32 @@ const Navbar = () => {
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo with 3D Effects */}
           <Link href="/" className="flex items-center group">
-            <motion.div 
-              className="flex items-center gap-2 px-3 py-1 rounded-lg hover:bg-white/5 transition-all"
-              whileHover={{ scale: 1.05 }}
+            <motion.div
+              className="flex items-center gap-3 px-3 py-1 rounded-lg hover:bg-white/5 transition-all"
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="relative h-12 w-12 perspective">
+              {/* 3D Rectangular Frame */}
+              <div className="relative w-14 h-12 transform-gpu" style={{ perspective: 800 }}>
                 <motion.div
-                  animate={{ rotateY: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="w-full h-full"
-                  style={{ transformStyle: "preserve-3d" }}
+                  className="absolute inset-0 rounded-lg bg-white/6 border border-white/10 flex items-center justify-center"
+                  animate={{ rotateY: [0, 6, -6, 0] }}
+                  transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{ transformStyle: 'preserve-3d' }}
                 >
                   <Image
                     src="/logos/logo-navbar.webp"
                     alt="Rollermax Logo"
-                    width={48}
-                    height={48}
+                    width={52}
+                    height={52}
                     priority
-                    className="object-contain filter drop-shadow-lg group-hover:drop-shadow-blue-500/50 transition-all"
+                    className="object-contain drop-shadow-lg"
                   />
                 </motion.div>
+                {/* subtle inner shine */}
+                <div className="absolute inset-0 pointer-events-none rounded-lg" style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)' }} />
               </div>
+
               <span className="text-lg font-bold bg-gradient-to-r from-roller-blue via-roller-red to-roller-blue bg-clip-text text-transparent">Rollermax</span>
             </motion.div>
           </Link>
