@@ -3,10 +3,23 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../lib/firebase'
 import { collection, getDocs, query, limit } from 'firebase/firestore'
+import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+
+const STATUS_COLORS: Record<string, string> = {
+  'Delivered': '#10b981',
+  'In Transit': '#3b82f6',
+  'Pending': '#f59e0b',
+  'Delayed': '#ef4444',
+}
 
 export default function Reports() {
   const [loading, setLoading] = useState(true)
-  const [stats, setStats] = useState<{ total: number; byStatus: Record<string, number>; avgDeliveryDays: number } | null>(null)
+  const [stats, setStats] = useState<{
+    total: number
+    byStatus: Record<string, number>
+    avgDeliveryDays: number
+    chartData: Array<{ name: string; value: number; color: string }>
+  } | null>(null)
 
   useEffect(() => {
     async function load() {
@@ -32,40 +45,99 @@ export default function Reports() {
           }
         })
         const avgDeliveryDays = countDates ? Math.round(totalDays / countDates) : 0
-        setStats({ total, byStatus, avgDeliveryDays })
+        const chartData = Object.entries(byStatus).map(([k, v]) => ({
+          name: k,
+          value: v,
+          color: STATUS_COLORS[k] || '#8b5cf6',
+        }))
+        setStats({ total, byStatus, avgDeliveryDays, chartData })
       } catch (e) {
         console.error('Reports load failed', e)
-        setStats({ total: 0, byStatus: {}, avgDeliveryDays: 0 })
+        setStats({ total: 0, byStatus: {}, avgDeliveryDays: 0, chartData: [] })
       } finally { setLoading(false) }
     }
     load()
   }, [])
 
-  if (loading) return <div className="text-gray-300">Loading reports...</div>
-  if (!stats) return <div className="text-gray-300">No report data</div>
+  if (loading) return <div className="text-gray-300 p-4">Loading reports...</div>
+  if (!stats) return <div className="text-gray-300 p-4">No report data</div>
 
   return (
-    <div className="card">
-      <h3 className="text-xl font-bold text-white mb-4">Shipment Reports</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 bg-white/5 rounded-lg">
-          <p className="text-sm text-gray-400">Total Shipments</p>
-          <p className="text-2xl font-bold text-white">{stats.total}</p>
+    <div className="space-y-6">
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="card p-6">
+          <p className="text-sm text-gray-400 mb-2">Total Shipments</p>
+          <p className="text-4xl font-bold text-accent">{stats.total}</p>
         </div>
-        <div className="p-4 bg-white/5 rounded-lg">
-          <p className="text-sm text-gray-400">Average Delivery Days</p>
-          <p className="text-2xl font-bold text-white">{stats.avgDeliveryDays}</p>
+        <div className="card p-6">
+          <p className="text-sm text-gray-400 mb-2">Avg Delivery (days)</p>
+          <p className="text-4xl font-bold text-blue-400">{stats.avgDeliveryDays}</p>
         </div>
-        <div className="p-4 bg-white/5 rounded-lg">
-          <p className="text-sm text-gray-400">By Status</p>
-          <ul className="mt-2 space-y-1">
-            {Object.entries(stats.byStatus).map(([k,v]) => (
-              <li key={k} className="flex justify-between text-white/90">
-                <span>{k}</span>
-                <span className="font-semibold">{v}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="card p-6">
+          <p className="text-sm text-gray-400 mb-2">Statuses Tracked</p>
+          <p className="text-4xl font-bold text-purple-400">{Object.keys(stats.byStatus).length}</p>
+        </div>
+      </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Status Bar Chart */}
+        <div className="card p-6">
+          <h4 className="text-lg font-bold text-white mb-4">Shipments by Status</h4>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={stats.chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+              <XAxis dataKey="name" stroke="#999" />
+              <YAxis stroke="#999" />
+              <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #444' }} />
+              <Bar dataKey="value" fill="#3b82f6" radius={[8, 8, 0, 0]}>
+                {stats.chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Status Pie Chart */}
+        <div className="card p-6">
+          <h4 className="text-lg font-bold text-white mb-4">Status Distribution</h4>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={stats.chartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, value }) => `${name}: ${value}`}
+                outerRadius={100}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {stats.chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #444' }} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Status List */}
+      <div className="card p-6">
+        <h4 className="text-lg font-bold text-white mb-4">Breakdown</h4>
+        <div className="space-y-2">
+          {stats.chartData.map(item => (
+            <div key={item.name} className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
+                <span className="text-white font-medium">{item.name}</span>
+              </div>
+              <span className="text-white/80 font-semibold">{item.value}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

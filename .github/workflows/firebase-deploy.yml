@@ -1,0 +1,42 @@
+name: Deploy Firebase
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
+jobs:
+  deploy:
+    name: Deploy Firebase functions & hosting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate with service account
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install firebase-tools
+        run: npm install -g firebase-tools@latest
+
+      - name: Install functions dependencies
+        run: |
+          cd functions
+          npm ci
+
+      - name: Deploy functions and hosting
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-key.json
+        run: |
+          # Use project id from secrets
+          firebase deploy --project ${{ secrets.FIREBASE_PROJECT_ID }} --only functions,hosting
