@@ -36,6 +36,18 @@ async function run() {
       await fs.copyFile(srcPath, destPath);
       console.log(`Copied: ${file} -> ${path.relative(process.cwd(), destPath)}`);
     }
+
+    // Generate a manifest.json in public/images so the app can discover images
+    try {
+      const publicFiles = await fs.readdir(destDir);
+      const images = publicFiles.filter(f => /\.(jpe?g|png|webp|gif|heic|svg)$/i.test(f));
+      const manifestPath = path.join(destDir, 'manifest.json');
+      await fs.writeFile(manifestPath, JSON.stringify(images, null, 2), 'utf8');
+      console.log(`Wrote manifest with ${images.length} images to ${path.relative(process.cwd(), manifestPath)}`);
+    } catch (mErr) {
+      console.warn('Failed to write manifest:', mErr.message || mErr);
+    }
+
     console.log('Import complete. Please check public/images and commit the files.');
   } catch (err) {
     console.error('Error importing images:', err.message || err);

@@ -1,10 +1,27 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Search, ArrowRight, Truck, Plane, Ship } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const Hero = () => {
   const [trackingId, setTrackingId] = useState('');
+  const [bannerSrc, setBannerSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadBanner() {
+      try {
+        const res = await fetch('/images/manifest.json');
+        if (!res.ok) return;
+        const list = await res.json();
+        const banner = list.find((f: string) => /banner/i.test(f));
+        if (banner) setBannerSrc(`/images/${banner}`);
+      } catch (e) {
+        // ignore
+      }
+    }
+    loadBanner();
+  }, []);
 
   const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +61,24 @@ const Hero = () => {
             </p>
           </motion.div>
 
-          {/* Right: The "Super Card" (Tracking Interface) */}
+          {/* Right: Banner Image or Tracking Card */}
+          {bannerSrc && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex-1 w-full max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl relative"
+            >
+              <Image
+                src={bannerSrc}
+                alt="Rollermax Delivery"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-roller-blue/60 to-transparent" />
+            </motion.div>
+          )}
+          
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}

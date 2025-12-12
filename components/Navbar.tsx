@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, User, Package, Globe, ArrowRight } from 'lucide-react';
@@ -9,6 +9,22 @@ import LoginPopup from './LoginPopup';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const [logoSrc, setLogoSrc] = useState('/images/rollermax-logo.png');
+
+  useEffect(() => {
+    async function loadLogo() {
+      try {
+        const res = await fetch('/images/manifest.json');
+        if (!res.ok) return;
+        const list = await res.json();
+        const logo = list.find((f: string) => /logo/i.test(f));
+        if (logo) setLogoSrc(`/images/${logo}`);
+      } catch (e) {
+        // ignore
+      }
+    }
+    loadLogo();
+  }, []);
 
   const toggleLoginPopup = () => {
     setShowLoginPopup(!showLoginPopup);
@@ -22,7 +38,7 @@ const Navbar = () => {
           <Link href="/" className="flex items-center">
             <div className="h-10 flex items-center">
               <Image
-                src="/images/rollermax-logo.png"
+                src={logoSrc}
                 alt="Rollermax Logo"
                 width={160}
                 height={36}
