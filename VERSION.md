@@ -1,22 +1,27 @@
-# Rollermax Courier Website - Version 2.0.0
+# Rollermax Courier Website - Version 3.0.0
 
-## Release Date: $(date +"%Y-%m-%d")
+## Release Date: 2025-12-12
 
 ## Version Information
-- **Version:** 2.0.0
-- **Status:** Production Ready
-- **Build:** Final Release
-- **Commissioning:** Ready
+- **Version:** 3.0.0
+- **Status:** Production Ready with Modern Features
+- **Build:** With Authentication & Real-Time Tracking
+- **Commissioning:** Ready for Deployment
 
-## Features
-- ✅ Modern Dark Red/Blue/White Theme
-- ✅ Reddish Background Theme
-- ✅ Simplified Menu with Colorful Floating Buttons
-- ✅ All Images Enabled and Displayed
-- ✅ Fully Responsive Design
-- ✅ AI-Powered Tracking
-- ✅ Image Marquee with All Assets
-- ✅ Clean, Professional Design
+## Major Features v3.0
+- ✅ Modern Branding (3D Logo across all pages)
+- ✅ Firebase Authentication (Email/Password, Google Sign-In, Password Reset)
+- ✅ Email Verification on Registration
+- ✅ Live Tracking with Satellite Maps & Animated Markers
+- ✅ Real-Time Shipment Listener (Firestore onSnapshot)
+- ✅ Admin Dashboard with Responsive Charts (Recharts)
+- ✅ Cloud Function Seeder (guarded by secret header)
+- ✅ Seed Data System (10 demo users, 10 demo shipments)
+- ✅ Responsive UI (Mobile-first, no distortion)
+- ✅ Accessibility Features (ARIA labels, loading states, keyboard navigation)
+- ✅ Dark Red/Blue/White Theme
+- ✅ Fully Responsive Across All Devices
+- ✅ CI/CD with GitHub Actions (Firebase deploy)
 
 ## Technical Stack
 - Next.js 14
