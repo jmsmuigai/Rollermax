@@ -3,7 +3,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  output: 'export',
+  // enable static export output
+  output: 'export', // This line is being set for static export builds
   trailingSlash: true,
   experimental: {
     optimizeCss: false,

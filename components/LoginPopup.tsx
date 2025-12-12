@@ -1,90 +1,126 @@
-'use client';
+"use client";
 
 import { X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { auth, db } from '../lib/firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 interface LoginPopupProps {
   onClose: () => void;
 }
 
 const LoginPopup = ({ onClose }: LoginPopupProps) => {
-  
-  // This is a placeholder for Firebase authentication.
-  // To implement this, you would need to set up Firebase in your project
-  // and use the Firebase SDK to handle Google Sign-In.
-  const handleGoogleSignIn = () => {
-    alert('Signing in with Google... (Firebase integration needed)');
-    // Example with firebase:
-    // import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-    // const auth = getAuth();
-    // const provider = new GoogleAuthProvider();
-    // signInWithPopup(auth, provider)
-    //   .then((result) => {
-    //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     const credential = GoogleAuthProvider.credentialFromResult(result);
-    //     const token = credential.accessToken;
-    //     // The signed-in user info.
-    //     const user = result.user;
-    //     console.log({ user, token });
-    //     onClose();
-    //   }).catch((error) => {
-    //     // Handle Errors here.
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     // The email of the user's account used.
-    //     const email = error.email;
-    //     // The AuthCredential type that was used.
-    //     const credential = GoogleAuthProvider.credentialFromError(error);
-    //     console.error({ errorCode, errorMessage, email, credential });
-    //   });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const persistUser = async (user: any, provider = 'password') => {
+    if (!user || !user.uid) return;
+    try {
+      await setDoc(doc(db, 'users', user.uid), {
+        uid: user.uid,
+        email: user.email || null,
+        name: user.displayName || null,
+        provider,
+        updatedAt: serverTimestamp(),
+        createdAt: serverTimestamp()
+      }, { merge: true });
+    } catch (e) {
+      console.error('Error writing user profile', e);
+    }
+  };
+
+  const handleSignUp = async () => {
+    setLoading(true);
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      await persistUser(res.user, 'password');
+      onClose();
+    } catch (e) {
+      console.error(e);
+      alert('Sign up failed: ' + (e as any).message);
+    } finally { setLoading(false); }
+  };
+
+  const handleSignIn = async () => {
+    setLoading(true);
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      await persistUser(res.user, 'password');
+      onClose();
+    } catch (e) {
+      console.error(e);
+      alert('Sign in failed: ' + (e as any).message);
+    } finally { setLoading(false); }
+  };
+
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      const res = await signInWithPopup(auth, provider);
+      await persistUser(res.user, 'google');
+      onClose();
+    } catch (e) {
+      console.error(e);
+      alert('Google sign-in failed');
+    } finally { setLoading(false); }
   };
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
       <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="relative glass-panel p-8 rounded-3xl w-full max-w-sm"
+        className="relative glass-panel p-6 rounded-3xl w-full max-w-md"
       >
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-roller-red">
-          <X size={24} />
+          <X size={22} />
         </button>
 
-        <h2 className="text-2xl font-bold text-center mb-6 text-roller-blue">Client Login</h2>
+        <h2 className="text-2xl font-bold text-center mb-4 text-roller-blue">Client Login</h2>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           <input 
+            value={email}
+            onChange={e => setEmail(e.target.value)}
             type="email" 
             placeholder="Email Address"
-            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue"
+            className="w-full p-3 bg-white/90 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue"
           />
           <input 
+            value={password}
+            onChange={e => setPassword(e.target.value)}
             type="password" 
             placeholder="Password"
-            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue"
+            className="w-full p-3 bg-white/90 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue"
           />
-          <button className="w-full py-3 bg-roller-blue text-white rounded-lg font-bold hover:bg-blue-700 transition-colors">
-            Log In
-          </button>
+          <div className="flex gap-3">
+            <button onClick={handleSignIn} disabled={loading} className="flex-1 py-3 bg-roller-blue text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+              Sign In
+            </button>
+            <button onClick={handleSignUp} disabled={loading} className="flex-1 py-3 bg-roller-red text-white rounded-lg font-semibold hover:opacity-90">
+              Register
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center my-6">
+        <div className="flex items-center my-4">
           <div className="flex-grow border-t border-gray-300"></div>
-          <span className="flex-shrink mx-4 text-gray-500">or</span>
+          <span className="flex-shrink mx-3 text-gray-500">or</span>
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
         <button 
           onClick={handleGoogleSignIn}
+          disabled={loading}
           className="w-full py-3 border border-gray-300 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
         >
           <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" className="w-5 h-5" />
           <span>Sign in with Google</span>
         </button>
-
-        <p className="text-xs text-gray-500 text-center mt-6">
-          Don't have an account? <a href="#" className="font-bold text-roller-blue">Sign Up</a>
-        </p>
 
       </motion.div>
     </div>
