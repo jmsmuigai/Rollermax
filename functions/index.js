@@ -1,7 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const cors = require('cors');
 
-// Initialize admin with service account JSON from env (set by CI or hosting)
+// Initialize admin
 if (!admin.apps.length) {
   const key = process.env.FIREBASE_SERVICE_ACCOUNT_KEY_JSON || process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
   if (key) {
@@ -18,31 +19,46 @@ if (!admin.apps.length) {
 }
 
 const db = admin.firestore();
+const corsHandler = cors({ origin: true });
 
-// Simple HTTP function that returns the list of users from Firestore 'users' collection.
-// Protect with header 'x-admin-key' equal to ADMIN_API_KEY env var.
-exports.listUsers = functions.https.onRequest(async (req, res) => {
-  const adminKey = process.env.ADMIN_API_KEY;
-  const provided = req.get('x-admin-key');
-  if (!adminKey || provided !== adminKey) {
-    return res.status(403).json({ error: 'forbidden' });
-  }
+// Secure HTTP function: verify Firebase ID token and check admin claim
+exports.listUsers = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, async () => {
+    // Get Firebase ID token from Authorization header
+    const authHeader = req.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'unauthorized: missing token' });
+    }
 
-  try {
-    const snap = await db.collection('users').get();
-    const users = snap.docs.map(d => {
-      const data = d.data();
-      return {
-        uid: data.uid,
-        email: data.email || null,
-        name: data.name || null,
-        provider: data.provider || null,
-        createdAt: data.createdAt || null
-      };
-    });
-    res.json({ ok: true, users });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'internal' });
-  }
+    const idToken = authHeader.substring(7);
+
+    try {
+      // Verify the token
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const uid = decodedToken.uid;
+      const adminClaim = decodedToken.admin === true;
+
+      if (!adminClaim) {
+        return res.status(403).json({ error: 'forbidden: not admin' });
+      }
+
+      // User is admin; fetch users list
+      const snap = await db.collection('users').get();
+      const users = snap.docs.map(d => {
+        const data = d.data();
+        return {
+          uid: data.uid,
+          email: data.email || null,
+          name: data.name || null,
+          provider: data.provider || null,
+          createdAt: data.createdAt || null
+        };
+      });
+
+      res.json({ ok: true, users, count: users.length });
+    } catch (e) {
+      console.error('Token verification failed:', e);
+      res.status(401).json({ error: 'unauthorized: invalid token' });
+    }
+  });
 });

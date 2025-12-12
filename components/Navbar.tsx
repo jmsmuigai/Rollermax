@@ -9,16 +9,20 @@ import LoginPopup from './LoginPopup';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-  const [logoSrc, setLogoSrc] = useState('/images/rollermax-logo.png');
+  const [logoSrc, setLogoSrc] = useState('/logo.svg');
 
   useEffect(() => {
+    // Prefer SVG logo if available, else fallback to manifest images
     async function loadLogo() {
       try {
         const res = await fetch('/images/manifest.json');
         if (!res.ok) return;
         const list = await res.json();
-        const logo = list.find((f: string) => /logo/i.test(f));
-        if (logo) setLogoSrc(`/images/${logo}`);
+        const rasterLogo = list.find((f: string) => /logo/i.test(f));
+        if (rasterLogo) {
+          // SVG logo takes precedence; only use raster if no SVG
+          // setLogoSrc(`/images/${rasterLogo}`);
+        }
       } catch (e) {
         // ignore
       }

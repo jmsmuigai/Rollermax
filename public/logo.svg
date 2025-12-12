@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0077B6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0096C7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D62828;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F77F00;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background glow -->
+  <circle cx="16" cy="30" r="22" fill="url(#grad1)" opacity="0.15" filter="url(#shadow)"/>
+  
+  <!-- Rolling wheel (stylized) -->
+  <g filter="url(#shadow)">
+    <!-- Outer wheel -->
+    <circle cx="16" cy="30" r="18" fill="none" stroke="url(#grad1)" stroke-width="3"/>
+    <!-- Inner spokes -->
+    <line x1="16" y1="12" x2="16" y2="48" stroke="url(#grad1)" stroke-width="1.5" opacity="0.6"/>
+    <line x1="30" y1="30" x2="2" y2="30" stroke="url(#grad1)" stroke-width="1.5" opacity="0.6"/>
+    <line x1="27" y1="19" x2="5" y2="41" stroke="url(#grad1)" stroke-width="1.5" opacity="0.4"/>
+    <line x1="27" y1="41" x2="5" y2="19" stroke="url(#grad1)" stroke-width="1.5" opacity="0.4"/>
+    <!-- Center hub -->
+    <circle cx="16" cy="30" r="4" fill="url(#grad2)"/>
+  </g>
+  
+  <!-- Text: "ROLLERMAX" -->
+  <g font-family="Arial, sans-serif" font-weight="700" letter-spacing="0.5">
+    <!-- Main text -->
+    <text x="42" y="38" font-size="18" fill="url(#grad1)" font-weight="900">ROLLER</text>
+    <text x="130" y="38" font-size="18" fill="url(#grad2)" font-weight="900">MAX</text>
+    
+    <!-- Subtext: "COURIER" in smaller text -->
+    <text x="42" y="52" font-size="9" fill="#666" letter-spacing="1.2" font-weight="600">COURIER</text>
+  </g>
+  
+  <!-- Accent line under logo -->
+  <line x1="42" y1="42" x2="180" y2="42" stroke="url(#grad1)" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Subtle animated accent (can be animated via CSS) -->
+  <circle cx="35" cy="26" r="2.5" fill="url(#grad2)" opacity="0.7"/>
+  <circle cx="185" cy="34" r="2" fill="url(#grad1)" opacity="0.6"/>
+</svg>
