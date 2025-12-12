@@ -8,6 +8,9 @@
     "export": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --write \"**/*.{js,ts,tsx,css,md,json}\"",
+    "setup": "npm run import-images && npm run optimize-images",
+    "postinstall": "npm run format || true",
     "preview:export": "npx serve out -s -l 3000",
     "import-images": "node ./scripts/import-images.js",
     "optimize-images": "node ./scripts/optimize-images.js"
@@ -31,6 +34,7 @@
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
-    "sharp": "^0.32.0"
+    "sharp": "^0.32.0",
+    "prettier": "^2.8.8"
   }
 }
