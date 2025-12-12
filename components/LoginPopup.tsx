@@ -1,10 +1,10 @@
 "use client";
 
-import { X } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { auth, db } from '../lib/firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 interface LoginPopupProps {
@@ -15,6 +15,43 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const captchaRef = useRef<HTMLDivElement | null>(null);
+  const grecaptchaWidget = useRef<number | null>(null);
+
+  // Load reCAPTCHA if site key is provided
+  useEffect(() => {
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    if (!siteKey) return;
+
+    const existing = document.getElementById('recaptcha-script');
+    if (!existing) {
+      const s = document.createElement('script');
+      s.id = 'recaptcha-script';
+      s.src = `https://www.google.com/recaptcha/api.js?render=explicit`;
+      s.async = true;
+      document.body.appendChild(s);
+      s.onload = () => renderCaptcha(siteKey);
+    } else {
+      renderCaptcha(siteKey);
+    }
+
+    function renderCaptcha(siteKey: string) {
+      try {
+        // @ts-ignore
+        if (window.grecaptcha && captchaRef.current) {
+          // @ts-ignore
+          grecaptchaWidget.current = window.grecaptcha.render(captchaRef.current, {
+            sitekey: siteKey,
+            theme: 'light'
+          });
+        }
+      } catch (e) {
+        console.warn('reCAPTCHA failed to render', e);
+      }
+    }
+  }, []);
 
   const persistUser = async (user: any, provider = 'password') => {
     if (!user || !user.uid) return;
@@ -32,31 +69,55 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
     }
   };
 
+  const validateCaptcha = async () => {
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    if (!siteKey) return true; // skip if not configured
+    try {
+      // @ts-ignore
+      const grecaptcha = window.grecaptcha;
+      if (!grecaptcha || grecaptchaWidget.current === null) return true;
+      // @ts-ignore
+      const resp = grecaptcha.getResponse(grecaptchaWidget.current);
+      return !!resp;
+    } catch (e) {
+      return true;
+    }
+  };
+
   const handleSignUp = async () => {
+    setMessage(null);
+    if (!email || !password) return setMessage('Enter email and password');
     setLoading(true);
     try {
+      const ok = await validateCaptcha();
+      if (!ok) return setMessage('Please complete the captcha');
       const res = await createUserWithEmailAndPassword(auth, email, password);
       await persistUser(res.user, 'password');
+      setMessage('Registration successful');
       onClose();
     } catch (e) {
       console.error(e);
-      alert('Sign up failed: ' + (e as any).message);
+      setMessage('Sign up failed: ' + (e as any).message);
     } finally { setLoading(false); }
   };
 
   const handleSignIn = async () => {
+    setMessage(null);
     setLoading(true);
     try {
+      const ok = await validateCaptcha();
+      if (!ok) return setMessage('Please complete the captcha');
       const res = await signInWithEmailAndPassword(auth, email, password);
       await persistUser(res.user, 'password');
       onClose();
     } catch (e) {
       console.error(e);
-      alert('Sign in failed: ' + (e as any).message);
+      setMessage('Sign in failed: ' + (e as any).message);
     } finally { setLoading(false); }
   };
 
   const handleGoogleSignIn = async () => {
+    setMessage(null);
     setLoading(true);
     try {
       const provider = new GoogleAuthProvider();
@@ -65,8 +126,29 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
       onClose();
     } catch (e) {
       console.error(e);
-      alert('Google sign-in failed');
+      setMessage('Google sign-in failed');
     } finally { setLoading(false); }
+  };
+
+  const handleResetPassword = async () => {
+    if (!email) return setMessage('Please enter your email to reset password');
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setMessage('Password reset email sent');
+    } catch (e) {
+      console.error(e);
+      setMessage('Reset failed: ' + (e as any).message);
+    } finally { setLoading(false); }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setMessage('Signed out');
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -90,13 +172,21 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
             placeholder="Email Address"
             className="w-full p-3 bg-white/90 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue"
           />
-          <input 
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            type="password" 
-            placeholder="Password"
-            className="w-full p-3 bg-white/90 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue"
-          />
+          <div className="relative">
+            <input 
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              type={showPassword ? 'text' : 'password'} 
+              placeholder="Password"
+              className="w-full p-3 bg-white/90 border border-gray-200 rounded-lg focus:ring-2 focus:ring-roller-blue pr-12"
+            />
+            <button type="button" onClick={() => setShowPassword(s => !s)} className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500">
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <button type="button" onClick={handleResetPassword} className="text-roller-blue hover:underline">Forgot password?</button>
+          </div>
           <div className="flex gap-3">
             <button onClick={handleSignIn} disabled={loading} className="flex-1 py-3 bg-roller-blue text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
               Sign In
@@ -113,6 +203,8 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
+        <div ref={captchaRef} className="mb-2" />
+        {message && <p className="text-sm text-center text-roller-red mb-2">{message}</p>}
         <button 
           onClick={handleGoogleSignIn}
           disabled={loading}
@@ -121,6 +213,10 @@ const LoginPopup = ({ onClose }: LoginPopupProps) => {
           <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" className="w-5 h-5" />
           <span>Sign in with Google</span>
         </button>
+
+        <div className="mt-4 text-center">
+          <button onClick={handleSignOut} type="button" className="text-xs text-gray-500 hover:text-gray-700">Sign out</button>
+        </div>
 
       </motion.div>
     </div>
