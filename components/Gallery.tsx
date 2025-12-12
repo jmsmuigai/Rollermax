@@ -11,10 +11,21 @@ const Gallery = () => {
       try {
         const res = await fetch('/images/manifest.json');
         if (!res.ok) return;
-        const list = await res.json();
-        // filter out thumbnails/webp folders
-        const filtered = list.filter((f: string) => !f.includes('thumb') && !f.startsWith('webp/'));
-        setImages(filtered);
+        const list: string[] = await res.json();
+
+        // pick only the five desired images (prefer originals over "-2" duplicates)
+        const desired = ['banner', 'motor', 'rollermax', 'camel', 'lorry'];
+
+        const pickBest = (key: string) => {
+          const candidates = list.filter(f => f.toLowerCase().includes(key));
+          if (candidates.length === 0) return null;
+          // prefer filenames without -2 or duplicates
+          const noDup = candidates.find(c => !c.includes('-2') && !c.includes('copy'));
+          return (noDup || candidates[0]) as string;
+        };
+
+        const selected = desired.map(d => pickBest(d)).filter(Boolean) as string[];
+        setImages(selected);
       } catch (e) {
         console.warn('No manifest found for gallery:', e);
       }
@@ -23,7 +34,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <section className="py-20 bg-transparent">
+    <section className="py-20 bg-gradient-to-tr from-roller-blue/5 via-transparent to-roller-red/5">
       <div className="container mx-auto px-4">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -35,26 +46,25 @@ const Gallery = () => {
         </motion.h2>
 
         {images.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {images.map((filename, index) => (
               <motion.div
                 key={filename}
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-                className="group relative h-80 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+                className="relative h-80 rounded-3xl overflow-hidden transform-gpu hover:scale-[1.03] transition-all duration-500"
               >
-                <div className="relative w-full h-full">
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-roller-red/10 via-roller-blue/5 to-roller-red/10 blur-[6px] opacity-70"></div>
+                <div className="relative w-full h-full rounded-3xl overflow-hidden ring-1 ring-roller-blue/20">
                   <Image
                     src={`/images/${filename}`}
-                    alt={filename}
+                    alt={`Operations photo ${index + 1}`}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-700 hover:scale-105 filter saturate-125"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-roller-blue/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <p className="text-white text-xl font-semibold p-6">{filename.replace(/[-_]/g, ' ').replace(/\.(jpg|jpeg|png|webp|gif|svg)$/i, '')}</p>
-                  </div>
                 </div>
+                {/* no captions per request */}
               </motion.div>
             ))}
           </div>
