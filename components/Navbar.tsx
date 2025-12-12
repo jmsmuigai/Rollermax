@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, User, Package, Globe, ArrowRight } from 'lucide-react';
@@ -9,26 +9,6 @@ import LoginPopup from './LoginPopup';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-  const [logoSrc, setLogoSrc] = useState('/logo.svg');
-
-  useEffect(() => {
-    // Prefer SVG logo if available, else fallback to manifest images
-    async function loadLogo() {
-      try {
-        const res = await fetch('/images/manifest.json');
-        if (!res.ok) return;
-        const list = await res.json();
-        const rasterLogo = list.find((f: string) => /logo/i.test(f));
-        if (rasterLogo) {
-          // SVG logo takes precedence; only use raster if no SVG
-          // setLogoSrc(`/images/${rasterLogo}`);
-        }
-      } catch (e) {
-        // ignore
-      }
-    }
-    loadLogo();
-  }, []);
 
   const toggleLoginPopup = () => {
     setShowLoginPopup(!showLoginPopup);
@@ -38,18 +18,32 @@ const Navbar = () => {
     <>
       <nav className="fixed w-full z-50 bg-primary/90 backdrop-blur-lg shadow-lg border-b border-white/5">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <div className="h-10 flex items-center">
-              <Image
-                src={logoSrc}
-                alt="Rollermax Logo"
-                width={160}
-                height={36}
-                priority
-                className="object-contain"
-              />
-            </div>
+          {/* Logo with 3D Effects */}
+          <Link href="/" className="flex items-center group">
+            <motion.div 
+              className="flex items-center gap-2 px-3 py-1 rounded-lg hover:bg-white/5 transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="relative h-12 w-12 perspective">
+                <motion.div
+                  animate={{ rotateY: [0, 360] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="w-full h-full"
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  <Image
+                    src="/logos/logo-navbar.webp"
+                    alt="Rollermax Logo"
+                    width={48}
+                    height={48}
+                    priority
+                    className="object-contain filter drop-shadow-lg group-hover:drop-shadow-blue-500/50 transition-all"
+                  />
+                </motion.div>
+              </div>
+              <span className="text-lg font-bold bg-gradient-to-r from-roller-blue via-roller-red to-roller-blue bg-clip-text text-transparent">Rollermax</span>
+            </motion.div>
           </Link>
 
           {/* Desktop Links */}

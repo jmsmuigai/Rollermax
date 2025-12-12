@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Search, ArrowRight, Truck, Plane, Ship } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Logo3D from './Logo3D';
 
 const Hero = () => {
   const [trackingId, setTrackingId] = useState('');
@@ -61,23 +62,27 @@ const Hero = () => {
             </p>
           </motion.div>
 
-          {/* Right: Banner Image or Tracking Card */}
-          {bannerSrc && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex-1 w-full max-w-md h-96 rounded-3xl overflow-hidden shadow-2xl relative"
-            >
-              <Image
-                src={bannerSrc}
-                alt="Rollermax Delivery"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-roller-blue/60 to-transparent" />
-            </motion.div>
-          )}
+          {/* Right: Logo with 3D Effects or Banner */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex-1 w-full max-w-md flex items-center justify-center relative"
+          >
+            {bannerSrc ? (
+              <div className="w-full h-96 rounded-3xl overflow-hidden shadow-2xl relative">
+                <Image
+                  src={bannerSrc}
+                  alt="Rollermax Delivery"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-roller-blue/60 to-transparent" />
+              </div>
+            ) : (
+              <Logo3D size="lg" animated showLabel glowEffect />
+            )}
+          </motion.div>
           
           <motion.div 
             initial={{ opacity: 0, y: 50 }}

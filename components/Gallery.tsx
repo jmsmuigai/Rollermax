@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import Logo3D from './Logo3D';
 
 const Gallery = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -47,6 +48,20 @@ const Gallery = () => {
 
         {images.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Logo Showcase Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="relative h-80 rounded-3xl overflow-hidden transform-gpu hover:scale-[1.03] transition-all duration-500 bg-gradient-to-br from-roller-blue/10 to-roller-red/10 flex items-center justify-center"
+            >
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-roller-red/10 via-roller-blue/5 to-roller-red/10 blur-[6px] opacity-70"></div>
+              <div className="relative z-10">
+                <Logo3D size="lg" animated glowEffect />
+              </div>
+            </motion.div>
+
+            {/* Image Gallery Cards */}
             {images.map((filename, index) => (
               <motion.div
                 key={filename}

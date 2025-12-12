@@ -1,87 +1,110 @@
-'use client'
+'use client';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
-
-export default function Logo3D() {
-  const [logoLoaded, setLogoLoaded] = useState(false)
-
-  return (
-    <div className="relative">
-      {/* 3D Circular Frame with Glow */}
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative w-20 h-20 md:w-24 md:h-24 logo-3d"
-      >
-        {/* Outer glow ring */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent via-accent-light to-accent-dark opacity-70 blur-xl animate-pulse"></div>
-        
-        {/* Middle ring with gradient */}
-        <div className="absolute inset-0 rounded-full border-4 border-transparent bg-gradient-to-br from-accent via-accent-light to-accent-dark p-[2px]">
-          <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-dark via-primary to-primary-dark"></div>
-        </div>
-        
-        {/* Inner circle with shine */}
-        <div className="absolute inset-2 rounded-full bg-gradient-to-br from-primary via-primary-light to-primary border-2 border-accent/50 overflow-hidden shadow-2xl shine-effect">
-          {/* Logo container */}
-          <div className="relative w-full h-full flex items-center justify-center p-2 md:p-3">
-            {/* Try to load actual logo image */}
-            <div className="relative z-10 w-full h-full">
-              <Image
-                src="/images/Rollermax logo.png"
-                alt="Rollermax Logo"
-                fill
-                className={`object-contain transition-opacity duration-500 ${
-                  logoLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-                onLoad={() => setLogoLoaded(true)}
-                onError={() => setLogoLoaded(false)}
-                priority
-              />
-              {/* Fallback text if image not found */}
-              {!logoLoaded && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-2xl md:text-3xl font-bold">
-                    <span className="text-white">Roller</span>
-                    <span className="text-accent">max</span>
-                  </div>
-                  <div className="text-[8px] md:text-[10px] text-primary dark:text-white/80 uppercase tracking-wider mt-0.5">
-                    Courier
-                  </div>
-                </div>
-              )}
-            </div>
-            
-            {/* Reflective highlight */}
-            <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-white/20 blur-sm"></div>
-          </div>
-        </div>
-        
-        {/* Floating particles around logo */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-accent rounded-full"
-            style={{
-              top: `${20 + (i * 10)}%`,
-              left: `${20 + (i * 10)}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
-          />
-        ))}
-      </motion.div>
-    </div>
-  )
+interface Logo3DProps {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  animated?: boolean;
+  className?: string;
+  showLabel?: boolean;
+  perspective?: '3d' | 'flat';
+  glowEffect?: boolean;
 }
 
+const sizeMap = {
+  sm: { width: 60, height: 60, img: 'logo-small.webp' },
+  md: { width: 100, height: 100, img: 'logo-navbar.webp' },
+  lg: { width: 200, height: 200, img: 'logo-hero.webp' },
+  xl: { width: 300, height: 300, img: 'logo-full.webp' },
+};
+
+export default function Logo3D({
+  size = 'md',
+  animated = true,
+  className = '',
+  showLabel = false,
+  perspective = '3d',
+  glowEffect = true,
+}: Logo3DProps) {
+  const { width, height, img } = sizeMap[size];
+
+  return (
+    <motion.div
+      className={`flex flex-col items-center justify-center ${className}`}
+      whileHover={animated ? { scale: 1.1 } : undefined}
+      whileTap={animated ? { scale: 0.95 } : undefined}
+    >
+      <div
+        className={`relative ${glowEffect ? 'drop-shadow-2xl' : ''}`}
+        style={{
+          perspective: perspective === '3d' ? '1000px' : 'none',
+          transformStyle: perspective === '3d' ? 'preserve-3d' : 'flat',
+        }}
+      >
+        {animated && (
+          <motion.div
+            animate={{
+              rotateY: [0, 360],
+              rotateX: [0, 5, -5, 0],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: 'linear',
+            }}
+            style={{
+              transformStyle: 'preserve-3d',
+              backfaceVisibility: 'hidden',
+            }}
+          >
+            <Image
+              src={`/logos/${img}`}
+              alt="Rollermax Logo"
+              width={width}
+              height={height}
+              priority
+              className={`object-contain filter transition-all ${
+                glowEffect ? 'group-hover:drop-shadow-blue-500/50' : ''
+              }`}
+            />
+          </motion.div>
+        )}
+
+        {!animated && (
+          <Image
+            src={`/logos/${img}`}
+            alt="Rollermax Logo"
+            width={width}
+            height={height}
+            priority
+            className="object-contain filter drop-shadow-lg"
+          />
+        )}
+
+        {/* Glow layer for extra effect */}
+        {glowEffect && (
+          <motion.div
+            className="absolute inset-0 rounded-full bg-gradient-to-r from-roller-blue to-roller-red opacity-0"
+            animate={{ opacity: [0.1, 0.2, 0.1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            style={{ filter: 'blur(20px)' }}
+          />
+        )}
+      </div>
+
+      {showLabel && (
+        <motion.div
+          className="mt-4 text-center"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-roller-blue via-roller-red to-blue-600 bg-clip-text text-transparent">
+            Rollermax
+          </h2>
+          <p className="text-xs md:text-sm text-gray-400 mt-1">Professional Courier Services</p>
+        </motion.div>
+      )}
+    </motion.div>
+  );
+}

@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import dynamic from 'next/dynamic'
+
+const Logo3D = dynamic(() => import('./Logo3D'), { ssr: false })
 
 export default function Footer() {
   return (
@@ -7,7 +10,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="text-2xl font-extrabold mb-4">Rollermax</h3>
+            <div className="mb-4">
+              <Logo3D size="sm" animated={false} glowEffect={false} />
+            </div>
             <p className="text-gray-300 text-sm mb-4">
               Delivering excellence across Kenya with AI-powered logistics solutions.
             </p>
