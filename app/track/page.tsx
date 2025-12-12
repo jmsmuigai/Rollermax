@@ -18,6 +18,7 @@ import {
 import dynamic from 'next/dynamic'
 
 const MapTracker = dynamic(() => import('../../components/MapTracker'), { ssr: false })
+const LiveTracker = dynamic(() => import('../../components/LiveTracker'), { ssr: false })
 
 interface TrackingStatus {
   status: string
@@ -330,7 +331,12 @@ function TrackPageContent() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-8">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
               <h3 className="text-white font-bold mb-4">Track on Map</h3>
-              <MapTracker route={trackingData.route} center={trackingData.route[0]} zoom={7} satellite />
+              {/* If user searched a real tracking number, show LiveTracker to listen for updates */}
+              {trackingNumber.startsWith('RMX') ? (
+                <LiveTracker trackingNumber={trackingNumber} satellite />
+              ) : (
+                <MapTracker route={trackingData.route} center={trackingData.route[0]} zoom={7} satellite />
+              )}
             </div>
           </motion.div>
         )}
