@@ -1,7 +1,6 @@
-'use client'
-
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart } from 'lucide-react'
+import Image from 'next/image' // Added import
 
 export default function About() {
   return (
@@ -33,15 +32,17 @@ export default function About() {
             viewport={{ once: true }}
             className="relative"
           >
-            <img
-              src="/images/camel.png"
+            <Image // Changed img to Image
+              src="/images/camel.webp" // Changed to webp
               alt="About Us"
               className="rounded-lg shadow-lg w-full h-auto"
+              width={500} // Added width
+              height={300} // Added height
             />
           </motion.div>
         </div>
 
-        <div className="mt-20 grid md:grid-cols-2 gap-12">
+        <div className="mt-20 grid md:grid-grid-cols-2 gap-12">
           <div className="flex items-start space-x-4">
             <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
               <Eye className="w-8 h-8 text-white" />

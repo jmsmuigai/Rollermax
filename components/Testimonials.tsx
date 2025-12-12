@@ -32,7 +32,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,7 +40,7 @@ export default function Testimonials() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-primary-dark mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-roller-dark mb-4">
             What Our Customers Say
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -48,7 +48,7 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
@@ -56,21 +56,29 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white p-8 rounded-lg shadow-md"
+              className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-l-4 border-roller-blue hover:border-roller-red"
             >
+              <div className="flex items-start gap-4 mb-6">
+                <Quote className="w-6 h-6 text-roller-blue flex-shrink-0 mt-1" />
+              </div>
               <div className="flex items-center mb-6">
-                <img src={testimonial.avatar} alt={testimonial.name} className="w-16 h-16 rounded-full mr-4" />
-                <div>
-                  <p className="font-bold text-primary-dark text-lg">{testimonial.name}</p>
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-roller-blue to-roller-red p-0.5 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-roller-blue to-roller-red">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <p className="font-bold text-roller-dark text-lg">{testimonial.name}</p>
                   <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  <p className="text-xs text-gray-400 mt-1">{testimonial.location}</p>
                 </div>
               </div>
               <div className="flex space-x-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-accent text-accent" />
+                  <Star key={i} className="w-5 h-5 fill-roller-red text-roller-red" />
                 ))}
               </div>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-600 mb-6 leading-relaxed italic">
                 "{testimonial.text}"
               </p>
             </motion.div>

@@ -24,7 +24,7 @@ const Gallery = () => {
           Our <span className="text-roller-red">Operations</span> Gallery
         </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {galleryImages.map((image, index) => (
             <motion.div
               key={index}
@@ -49,6 +49,12 @@ const Gallery = () => {
             </motion.div>
           ))}
         </div>
+        {galleryImages.length === 0 && (
+          <div className="mt-8 p-8 rounded-2xl bg-gradient-to-r from-roller-blue to-roller-red text-white text-center">
+            <p className="text-2xl font-bold">Gallery coming soon — add your images to /public/images</p>
+            <p className="mt-2 text-sm">Bring your brand alive with high-quality photos of your fleet and operations.</p>
+          </div>
+        )}
       </div>
     </section>
   );

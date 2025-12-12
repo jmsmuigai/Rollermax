@@ -1,16 +1,18 @@
-import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
-import Gallery from '@/components/Gallery'; // Your existing gallery
+import Gallery from '@/components/Gallery';
+import Testimonials from '@/components/Testimonials';
+import Newsletter from '@/components/Newsletter'; // Your existing gallery
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Navbar />
       <Hero />
       <Services />
       <Gallery />
-      
+      <Testimonials />
+      <Newsletter />
+
       {/* Footer Teaser */}
       <section className="bg-roller-dark text-white py-20">
         <div className="container mx-auto px-4 text-center">

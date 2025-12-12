@@ -33,7 +33,7 @@ const Hero = () => {
             <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-roller-blue text-sm font-bold mb-6">
               🚀 AI-Powered Logistics v2.0
             </span>
-            <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight text-roller-dark mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight text-roller-dark mb-6">
               Global Shipping. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-roller-blue to-roller-red">
                 Simplified.
@@ -51,7 +51,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-1 w-full max-w-md"
           >
-            <div className="glass-panel p-8 rounded-3xl relative overflow-hidden">
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl relative overflow-hidden bg-gradient-to-br from-white/80 to-roller-blue/5">
               {/* Decorative top bar */}
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-roller-blue to-roller-red"></div>
               
@@ -69,7 +69,7 @@ const Hero = () => {
                     onChange={(e) => setTrackingId(e.target.value)}
                   />
                 </div>
-                <button type="submit" className="w-full py-4 bg-roller-blue hover:bg-blue-700 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-2">
+                <button type="submit" className="w-full py-4 bg-gradient-to-r from-roller-blue to-roller-red text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
                   Track Now <ArrowRight size={20} />
                 </button>
               </form>
