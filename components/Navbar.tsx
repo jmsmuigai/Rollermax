@@ -52,8 +52,8 @@ const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-8 font-medium text-accent">
-            <Link href="#track" className="hover:text-white flex items-center gap-2"><Package size={18}/> Track</Link>
-            <Link href="#services" className="hover:text-white flex items-center gap-2"><Globe size={18}/> Services</Link>
+            <Link href="/track" className="hover:text-white flex items-center gap-2"><Package size={18}/> Track</Link>
+            <Link href="/#services" className="hover:text-white flex items-center gap-2"><Globe size={18}/> Services</Link>
             <Link href="/contact" className="hover:text-white">Support</Link>
           </div>
 
@@ -83,8 +83,8 @@ const Navbar = () => {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden bg-primary/95 backdrop-blur-lg border-t border-white/5 p-4 flex flex-col gap-4 shadow-xl"
             >
-              <Link href="#track" className="p-2 text-accent hover:bg-white/5 rounded-lg">Track Shipment</Link>
-              <Link href="#services" className="p-2 text-accent hover:bg-white/5 rounded-lg">Our Services</Link>
+              <Link href="/track" className="p-2 text-accent hover:bg-white/5 rounded-lg">Track Shipment</Link>
+              <Link href="/#services" className="p-2 text-accent hover:bg-white/5 rounded-lg">Our Services</Link>
               <button onClick={toggleLoginPopup} className="w-full bg-roller-blue text-white py-3 rounded-lg font-bold mt-2">Client Login</button>
             </motion.div>
           )}

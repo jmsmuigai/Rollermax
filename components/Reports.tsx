@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../lib/firebase'
 import { collection, getDocs, query, limit } from 'firebase/firestore'
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { seedShipments } from '../lib/seed-data'
+import { RefreshCw, Database } from 'lucide-react'
 
 const STATUS_COLORS: Record<string, string> = {
   'Delivered': '#10b981',
@@ -60,7 +62,23 @@ export default function Reports() {
   }, [])
 
   if (loading) return <div className="text-gray-300 p-4">Loading reports...</div>
-  if (!stats) return <div className="text-gray-300 p-4">No report data</div>
+  if (!stats || stats.total === 0) return (
+    <div className="text-gray-300 p-12 text-center bg-white/5 rounded-3xl border border-white/10">
+      <Database className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+      <h3 className="text-xl font-bold mb-2">No Report Data</h3>
+      <p className="text-gray-500 mb-8">It looks like there are no shipments in the database yet.</p>
+      <button 
+        onClick={async () => {
+          setLoading(true);
+          await seedShipments();
+          window.location.reload();
+        }}
+        className="btn-primary flex items-center gap-2 mx-auto"
+      >
+        <RefreshCw size={18} /> Seed Sample Data
+      </button>
+    </div>
+  )
 
   return (
     <div className="space-y-6">

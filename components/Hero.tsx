@@ -7,22 +7,7 @@ import Logo3D from './Logo3D';
 
 const Hero = () => {
   const [trackingId, setTrackingId] = useState('');
-  const [bannerSrc, setBannerSrc] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function loadBanner() {
-      try {
-        const res = await fetch('/images/manifest.json');
-        if (!res.ok) return;
-        const list = await res.json();
-        const banner = list.find((f: string) => /banner/i.test(f));
-        if (banner) setBannerSrc(`/images/${banner}`);
-      } catch (e) {
-        // ignore
-      }
-    }
-    loadBanner();
-  }, []);
+  const bannerSrc = '/images/webp/Banner.webp';
 
   const handleTrack = (e: React.FormEvent) => {
     e.preventDefault();

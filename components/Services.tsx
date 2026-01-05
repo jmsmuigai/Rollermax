@@ -26,26 +26,11 @@ const serviceConfigs = [
 ];
 
 const Services = () => {
-  const [imageMap, setImageMap] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    async function loadImages() {
-      try {
-        const res = await fetch('/images/manifest.json');
-        if (!res.ok) return;
-        const list = await res.json();
-        const map: Record<string, string> = {};
-        ['Aeroplane', 'Motorcycle', 'Lorry'].forEach(name => {
-          const img = list.find((f: string) => new RegExp(name, 'i').test(f));
-          if (img) map[name] = `/images/${img}`;
-        });
-        setImageMap(map);
-      } catch (e) {
-        // ignore
-      }
-    }
-    loadImages();
-  }, []);
+  const imageMap: Record<string, string> = {
+    'Aeroplane': '/images/webp/camel.webp', // Using camel for international as a placeholder or matching logic
+    'Motorcycle': '/images/webp/Motorcycle.webp',
+    'Lorry': '/images/webp/lorry.webp'
+  };
 
   return (
     <section id="services" className="py-20 bg-white">
